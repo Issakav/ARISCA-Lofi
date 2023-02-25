@@ -1,44 +1,15 @@
+const audio = document.querySelector("audio");
+//console.log(audio);
 
-const AudioContext = window.AudioContext || window.webKitAudioContext;
+const playBtn = document.querySelector(".play");
 
-const audioContext = new AudioContext();
+const pauseBtn = document.querySelector(".pause");
 
-// get the audio element
-const audioElement = document.querySelector("audio");
+playBtn.addEventListener("click", () => {
+  audio.play();
+});
 
-// pass it into the audio context
-const track = audioContext.createMediaElementSource(audioElement);
+pauseBtn.addEventListener("click", () => {
+  audio.pause();
+});
 
-track.connect(audioContext.destination);
-
-
-const playButton = document.querySelector("button");
-
-playButton.addEventListener(
-  "click",
-  () => {
-    // Check if context is in suspended state (autoplay policy)
-    if (audioContext.state === "suspended") {
-      audioContext.resume();
-    }
-
-    // Play or pause track depending on state
-    if (playButton.dataset.playing === "false") {
-      audioElement.play();
-      playButton.dataset.playing = "true";
-    } else if (playButton.dataset.playing === "true") {
-      audioElement.pause();
-      playButton.dataset.playing = "false";
-    }
-  },
-  false
-);
-
-audioElement.addEventListener(
-    "ended",
-    () => {
-      playButton.dataset.playing = "false";
-    },
-    false
-  );
-  
