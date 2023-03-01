@@ -12,8 +12,8 @@ const oneBar = 5000; // length of one bar. TODO: update
 
 
 
-const trackPaths = ["./audio/testDrums.mp3","./audio/testSound.mp3"]; //update to hold path names for all audio files
-
+const trackPaths = ["./audio/drum_loop_6.wav","./audio/top_loop_7.wav","./audio/melody_3.wav","./audio/melody_5.wav"]; //update to hold path names for all audio files
+//TODO fix idea: set all loops to the same audio, around 10 times and see if the delay is still present
 startBtn.addEventListener("click", () => {
   audioContext = new AudioContext();
   volume = audioContext.createGain();
@@ -29,7 +29,7 @@ setupBtn.addEventListener("click", () => {
 
       const playingTracks = [];
       for (const track of tracks) {
-        playingTracks.push(playTrack(track, 0));
+        playingTracks.push(playTrack(track, 0).start(0));
       }
       //const playing = playTrack(tracks[0], 0);
       setTimeout(() => {
@@ -71,7 +71,7 @@ function playTrack(audioBuffer, time){
   const trackSource = audioContext.createBufferSource();
   trackSource.buffer = audioBuffer;
   trackSource.connect(volume);
-  trackSource.start(time);
+  //trackSource.start(time); //TODO: moving this to playingTracks.push(playTrack(track, 0).start(0)); in the playBtn event listener solved the issue so that all tracks now start at the same time.
   return trackSource;
 }
 
