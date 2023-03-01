@@ -1,17 +1,23 @@
 console.log("hello");
 
 let audioContext;
+let volume;
 let tracks;
 const startBtn = document.querySelector(".start");
 const setupBtn = document.querySelector(".setupTracks");
 const playBtn = document.querySelector(".playSample");
 
+
 const oneBar = 5000; // length of one bar. TODO: update
+
+
 
 const trackPaths = ["./audio/testDrums.mp3","./audio/testSound.mp3"]; //update to hold path names for all audio files
 
 startBtn.addEventListener("click", () => {
   audioContext = new AudioContext();
+  volume = audioContext.createGain();
+  volume.connect(audioContext.destination);
   console.log("Started the Audio Context");
 });
 
@@ -20,10 +26,19 @@ setupBtn.addEventListener("click", () => {
     tracks = response;
     console.log(tracks);
     playBtn.addEventListener("click", () => {
-      const playing = playTrack(tracks[0], 0);
+
+      const playingTracks = [];
+      for (const track of tracks) {
+        playingTracks.push(playTrack(track, 0));
+      }
+      //const playing = playTrack(tracks[0], 0);
       setTimeout(() => {
-        playing.stop();
-      }, oneBar);
+        //playing.stop();
+        volume.gain.value = 0;
+        setTimeout(() => {
+          volume.gain.value = 1;
+        }, oneBar);
+      }, oneBar*2);
     });
   });
 })
@@ -55,7 +70,7 @@ async function setupTracks(paths) {
 function playTrack(audioBuffer, time){
   const trackSource = audioContext.createBufferSource();
   trackSource.buffer = audioBuffer;
-  trackSource.connect(audioContext.destination);
+  trackSource.connect(volume);
   trackSource.start(time);
   return trackSource;
 }
