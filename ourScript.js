@@ -32,13 +32,13 @@ setupBtn.addEventListener("click", () => {
         playingTracks.push(playTrack(track, 0).start(0));
       }
       //const playing = playTrack(tracks[0], 0);
-      setTimeout(() => {
-        //playing.stop();
-        volume.gain.value = 0;
-        setTimeout(() => {
-          volume.gain.value = 1;
-        }, oneBar);
-      }, oneBar*2);
+      // setTimeout(() => {
+      //   //playing.stop();
+      //   volume.gain.value = 0;
+      //   setTimeout(() => {
+      //     volume.gain.value = 1;
+      //   }, oneBar);
+      // }, oneBar*2);  
     });
   });
 })
@@ -71,6 +71,7 @@ function playTrack(audioBuffer, time){
   const trackSource = audioContext.createBufferSource();
   trackSource.buffer = audioBuffer;
   trackSource.connect(volume);
+  trackSource.loop = true;
   //trackSource.start(time); //TODO: moving this to playingTracks.push(playTrack(track, 0).start(0)); in the playBtn event listener solved the issue so that all tracks now start at the same time.
   return trackSource;
 }
