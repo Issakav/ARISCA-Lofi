@@ -2,13 +2,14 @@ console.log("hello");
 
 let audioContext;
 let volume;
-let tracks;
-const startBtn = document.querySelector(".start");
+let tracks; //Drums, Piano, Melody, Guitar
+const startBtn =  document.querySelector(".start");
 const setupBtn = document.querySelector(".setupTracks");
 const playBtn = document.querySelector(".playSample");
 
 
-const oneBar = 5000; // length of one bar. TODO: update
+const oneBar = 6000; // length of one bar. TODO: update
+var nextTime = 0;
 
 
 
@@ -29,16 +30,9 @@ setupBtn.addEventListener("click", () => {
 
       const playingTracks = [];
       for (const track of tracks) {
+        nextTime = audioContext.currentTime;
         playingTracks.push(playTrack(track, 0).start(0));
       }
-      //const playing = playTrack(tracks[0], 0);
-      // setTimeout(() => {
-      //   //playing.stop();
-      //   volume.gain.value = 0;
-      //   setTimeout(() => {
-      //     volume.gain.value = 1;
-      //   }, oneBar);
-      // }, oneBar*2);  
     });
   });
 })
