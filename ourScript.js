@@ -9,7 +9,7 @@ const playBtn = document.querySelector(".playSample");
 
 
 const oneBar = 6000; // length of one bar. TODO: update
-var nextTime = 0;
+let nextTime = 0;
 
 
 
@@ -24,7 +24,7 @@ startBtn.addEventListener("click", () => {
 
 setupBtn.addEventListener("click", () => {
   setupTracks(trackPaths).then((response) => {
-    tracks = response;
+    let tracks = response;
     console.log(tracks);
     playBtn.addEventListener("click", () => {
 
@@ -34,6 +34,7 @@ setupBtn.addEventListener("click", () => {
         playingTracks.push(playTrack(track, 0).start(0));
       }
     });
+    
   });
 })
 
