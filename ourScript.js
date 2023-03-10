@@ -33,8 +33,8 @@ setupBtn.addEventListener("click", () => {
         nextTime = audioContext.currentTime;
         playingTracks.push(playTrack(track, 0).start(0));
       }
+      //check setTimout and setInterval to switch tracks every x loops. Check if there is something like this in the webAudioAPI.
     });
-    
   });
 })
 
