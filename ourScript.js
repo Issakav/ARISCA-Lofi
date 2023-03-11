@@ -18,7 +18,7 @@ let nextTime = 0;
 
 
 
-const trackPaths = ["./audio/drum_loop_6.wav","./audio/top_loop_7.wav","./audio/melody_3.wav","./audio/melody_5.wav"]; //update to hold path names for all audio files
+const trackPaths = ["./audio/drum_loop_6.wav","./audio/top_loop_7.wav","./audio/melody_3_old.wav","./audio/melody_5_old.wav"]; //update to hold path names for all audio files
 //TODO fix idea: set all loops to the same audio, around 10 times and see if the delay is still present
 startBtn.addEventListener("click", () => {
   audioContext = new AudioContext();
