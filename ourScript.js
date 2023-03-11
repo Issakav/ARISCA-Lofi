@@ -9,6 +9,11 @@ const playBtn = document.querySelector(".playSample");
 
 
 const oneBar = 6000; // length of one bar. TODO: update
+/* Note: The new sounds that I added in are all 5.647 second long. 
+I know this is a really inconvenient number and if the math doesn't work or anything
+lmk and I can fix the length, that was just the length that all of them looped
+the best when I listened to it on garageband
+*/
 let nextTime = 0;
 
 
