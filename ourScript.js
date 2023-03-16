@@ -4,6 +4,8 @@ let audioContext;
 let volume;
 let gainNodes = [];
 let tracks; //Drums, Piano, Melody, Guitar
+
+const currentlyPlaying = []; //set of VOLUME nodes NOT audio
 const startBtn =  document.querySelector(".start");
 const setupBtn = document.querySelector(".setupTracks");
 const playBtn = document.querySelector(".playSample");
@@ -57,6 +59,7 @@ setupBtn.addEventListener("click", () => {
     while (i < gainNodes.length){
       if (i%5 != 0){
         gainNodes[i].gain.value = 0;
+        currentlyPlaying.push(gainNodes[i]);
       }
       i++;
     }
@@ -100,6 +103,8 @@ function playTrack(audioBuffer, time){
   //trackSource.start(time); //TODO: moving this to playingTracks.push(playTrack(track, 0).start(0)); in the playBtn event listener solved the issue so that all tracks now start at the same time.
   return trackSource;
 }
+
+
 
 
 
