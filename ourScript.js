@@ -18,11 +18,22 @@ the best when I listened to it on garageband
 let nextTime = 0;
 
 const drumTrackPaths = ["./audio/Drum_1.wav","./audio/Drum_2.wav","./audio/Drum_3.wav", "./audio/Drum_4.wav","./audio/Drum_5.wav"];
-const guitarTrackPaths = ["./audio/Guitar_1.wav","./audio/Guitar_2.wav","./audio/Guitar_3.wav","./audio/Guitar_4.wav","./audio/Guitar_5.wav"]
-const melodyTrackPaths = ["./audio/Melody_1.wav","./audio/Melody_2.wav","./audio/Melody_3.wav","./audio/Melody_4.wav","./audio/Melody_5.wav"]
-const pianoTrackPaths = ["./audio/Piano_1.wav","./audio/Piano_2.wav","./audio/Piano_3.wav","./audio/Piano_4.wav","./audio/Piano_5.wav"]
+const guitarTrackPaths = ["./audio/Guitar_1.wav","./audio/Guitar_2.wav","./audio/Guitar_3.wav","./audio/Guitar_4.wav","./audio/Guitar_5.wav"];
+const melodyTrackPaths = ["./audio/Melody_1.wav","./audio/Melody_2.wav","./audio/Melody_3.wav","./audio/Melody_4.wav","./audio/Melody_5.wav"];
+const pianoTrackPaths = ["./audio/Piano_1.wav","./audio/Piano_2.wav","./audio/Piano_3.wav","./audio/Piano_4.wav","./audio/Piano_5.wav"];
+
+const drumTrackFirst = 0;
+const drumTrackLast = 4;
+const guitarTrackFirst = 5;
+const guitarTrackLast = 9;
+const melodyTrackFirst = 10;
+const melodyTrackLast = 14;
+const pianoTrackFirst = 15;
+const pianoTrackLast = 19;
 
 const trackPaths = drumTrackPaths.concat(guitarTrackPaths).concat(melodyTrackPaths).concat(pianoTrackPaths);
+
+
 //TODO fix idea: set all loops to the same audio, around 10 times and see if the delay is still present
 startBtn.addEventListener("click", () => {
   audioContext = new AudioContext();
@@ -42,6 +53,13 @@ setupBtn.addEventListener("click", () => {
         nextTime = audioContext.currentTime;
         playingTracks.push(playTrack(track, 0).start());
       }
+    let i = 0;
+    while (i < gainNodes.length){
+      if (i%5 != 0){
+        gainNodes[i].gain.value = 0;
+      }
+      i++;
+    }
       //check setTimout and setInterval to switch tracks every x loops. Check if there is something like this in the webAudioAPI.
     });
   });
