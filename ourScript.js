@@ -27,7 +27,7 @@ const pianoTrackPaths = ["./audio/Piano_1.wav","./audio/Piano_2.wav","./audio/Pi
 const trackPaths = drumTrackPaths.concat(guitarTrackPaths).concat(melodyTrackPaths).concat(pianoTrackPaths);
 
 
-//TODO fix idea: set all loops to the same audio, around 10 times and see if the delay is still present
+
 startBtn.addEventListener("click", () => {
   audioContext = new AudioContext();
   console.log("Started the Audio Context");
