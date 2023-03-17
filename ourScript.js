@@ -24,23 +24,12 @@ const guitarTrackPaths = ["./audio/Guitar_1.wav","./audio/Guitar_2.wav","./audio
 const melodyTrackPaths = ["./audio/Melody_1.wav","./audio/Melody_2.wav","./audio/Melody_3.wav","./audio/Melody_4.wav","./audio/Melody_5.wav"];
 const pianoTrackPaths = ["./audio/Piano_1.wav","./audio/Piano_2.wav","./audio/Piano_3.wav","./audio/Piano_4.wav","./audio/Piano_5.wav"];
 
-const drumTrackFirst = 0;
-const drumTrackLast = 4;
-const guitarTrackFirst = 5;
-const guitarTrackLast = 9;
-const melodyTrackFirst = 10;
-const melodyTrackLast = 14;
-const pianoTrackFirst = 15;
-const pianoTrackLast = 19;
-
 const trackPaths = drumTrackPaths.concat(guitarTrackPaths).concat(melodyTrackPaths).concat(pianoTrackPaths);
 
 
 //TODO fix idea: set all loops to the same audio, around 10 times and see if the delay is still present
 startBtn.addEventListener("click", () => {
   audioContext = new AudioContext();
-  // volume = audioContext.createGain();
-  // volume.connect(audioContext.destination);
   console.log("Started the Audio Context");
 });
 
@@ -63,11 +52,37 @@ setupBtn.addEventListener("click", () => {
       }
       i++;
     }
-      //check setTimout and setInterval to switch tracks every x loops. Check if there is something like this in the webAudioAPI.
+    setInterval(changeTrack, 2*oneBar);
+      
     });
   });
 })
 
+function changeTrack(){
+  const typeToChange = getRndInteger(1,6);
+  console.log(typeToChange);
+  if (typeToChange == 5){ //sets one track at random to silent for 1 bar to create a sort of beat droppy effect
+    const typeToMute = getRndInteger(1,5);
+    const trackToChange = currentlyPlaying[typeToChange - 1];
+    trackToChange.gain.value = 0;
+    setTimeout(() => { 
+      trackToChange.gain.value = 1;
+    }, oneBar);
+  } else{ //swaps one track for another of the same type. sometimes changes it for itself causing no change so that the changes don't feel as consistent.
+    const trackToChange = currentlyPlaying[typeToChange - 1]; //trackToChange is actually a gain node, not a track
+    trackToChange.gain.value = 0;
+    const newTrack = gainNodes[getRndInteger((typeToChange - 1) * 5,(typeToChange * 5) - 1)];
+    newTrack.gain.value = 1;
+    currentlyPlaying[typeToChange - 1] = newTrack;
+  }
+}
+
+
+
+//min is inclusive, max is not. 
+function getRndInteger(min, max) {
+  return Math.floor(Math.random() * (max - min) ) + min;
+}
 
 
 async function getAudioFile(filePath){
@@ -100,7 +115,6 @@ function playTrack(audioBuffer, time){
   gainNodes.push(volume);
   trackSource.connect(volume);
   trackSource.loop = true;
-  //trackSource.start(time); //TODO: moving this to playingTracks.push(playTrack(track, 0).start(0)); in the playBtn event listener solved the issue so that all tracks now start at the same time.
   return trackSource;
 }
 
@@ -112,72 +126,4 @@ function playTrack(audioBuffer, time){
 
 
 
-
-
-
-// const playBtn = document.querySelector(".play");
-// const pauseBtn = document.querySelector(".pause");
-// const stopBtn = document.querySelector(".stop");
-
-// const audioContext = new AudioContext();
-
-// const testDrum1 = new Audio("./audio/testDrums.mp3");
-
-// const source = audioContext.createMediaElementSource(testDrum1);
-// const volume = audioContext.createGain();
-// volume.gain.value = 1; //causes no change unless != 1
-
-// source.connect(volume); //these two lines are just an example to show how we have to connect up our nodes. 
-// volume.connect(audioContext.destination);
-
-// playBtn.addEventListener("click", () => {
-//   if (audioContext.state === "suspended") {
-//     audioContext.resume();
-//   }
-//   testDrum1.play();
-// });
-
-// pauseBtn.addEventListener("click", () => {
-//   testDrum1.pause();
-// });
-
-// stopBtn.addEventListener("click", () => {
-//   testDrum1.pause();
-//   testDrum1.currentTime = 0; // in seconds not milliseconds
-// });
-
-
-
-
-
-
-
-
-
-
-
-
-
-// const oneBar = 2000 //How many milliseconds in a bar (update once music is chosen)
-
-
-// const trackList = document.querySelectorAll("audio");
-// const testDrum = trackList[0];
-// const testSound = trackList[1];
-// //console.log(audio);
-
-// const playBtn = document.querySelector(".play");
-
-// const pauseBtn = document.querySelector(".pause");
-
-// playBtn.addEventListener("click", () => {
-//   testDrum.play();
-//   testSound.play();
-  
-// });
-
-// pauseBtn.addEventListener("click", () => {
-//   testDrum.pause();
-//   testSound.pause();
-// });
 
