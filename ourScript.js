@@ -9,7 +9,7 @@ const currentlyPlaying = []; //set of VOLUME nodes NOT audio
 const startBtn =  document.querySelector(".start");
 const setupBtn = document.querySelector(".setupTracks");
 const playBtn = document.querySelector(".playSample");
-
+const pauseBtn =  document.querySelector(".pause");
 
 const oneBar = 5647; // length of one bar. TODO: update
 /* Note: The new sounds that I added in are all 5.647 second long. 
@@ -37,24 +37,35 @@ setupBtn.addEventListener("click", () => {
   setupTracks(trackPaths).then((response) => {
     let tracks = response;
     console.log(tracks);
-    playBtn.addEventListener("click", () => {
 
+    playBtn.addEventListener("click", () => {
       const playingTracks = [];
       for (const track of tracks) {
         nextTime = audioContext.currentTime;
         playingTracks.push(playTrack(track, 0).start());
       }
-    let i = 0;
-    while (i < gainNodes.length){
-      if (i%5 != 0){
-        gainNodes[i].gain.value = 0;
-        currentlyPlaying.push(gainNodes[i]);
+      let i = 0;
+      while (i < gainNodes.length){
+        if (i%5 != 0) {
+          gainNodes[i].gain.value = 0;
+          currentlyPlaying.push(gainNodes[i]);
+        }
+        i++;
       }
-      i++;
-    }
-    setInterval(changeTrack, 2*oneBar);
-      
+      setInterval(changeTrack, 2*oneBar);
     });
+
+    pauseBtn.onclick = function() {
+      if(audioContext.state === 'running') {
+        audioContext.suspend().then(function() {
+          pauseBtn.textContent = 'RESUME';
+        });
+      } else if(audioContext.state === 'suspended') {
+        audioContext.resume().then(function() {
+          pauseBtn.textContent = 'PAUSE';
+        });  
+      }
+    }
   });
 })
 
@@ -117,13 +128,3 @@ function playTrack(audioBuffer, time){
   trackSource.loop = true;
   return trackSource;
 }
-
-
-
-
-
-
-
-
-
-
