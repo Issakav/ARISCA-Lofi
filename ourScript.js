@@ -18,6 +18,15 @@ I know this is a really inconvenient number and if the math doesn't work or anyt
 lmk and I can fix the length, that was just the length that all of them looped
 the best when I listened to it on garageband
 */
+
+/*
+Note on nature sounds:
+They are unfortunately all different lengths
+  Forest: 12.285s
+  Ocean: 12.083
+  Grasslands: 12.930s
+  Rain: 30.000s
+*/
 let nextTime = 0;
 
 let started = false; // a boolean checking if the button should play/pause
