@@ -6,10 +6,10 @@ let gainNodes = [];
 let tracks; //Drums, Piano, Melody, Guitar
 
 const currentlyPlaying = []; //set of VOLUME nodes NOT audio
-const startBtn =  document.querySelector(".start");
+const startBtn = document.querySelector(".start");
 const setupBtn = document.querySelector(".setupTracks");
 const playBtn = document.querySelector(".playSample");
-const pauseBtn =  document.querySelector(".pause");
+const pauseBtn = document.querySelector(".pause");
 
 const oneBar = 5647; // length of one bar. TODO: update
 /* Note: The new sounds that I added in are all 5.647 second long. 
@@ -19,10 +19,10 @@ the best when I listened to it on garageband
 */
 let nextTime = 0;
 
-const drumTrackPaths = ["./audio/Drum_1.wav","./audio/Drum_2.wav","./audio/Drum_3.wav", "./audio/Drum_4.wav","./audio/Drum_5.wav"];
-const guitarTrackPaths = ["./audio/Guitar_1.wav","./audio/Guitar_2.wav","./audio/Guitar_3.wav","./audio/Guitar_4.wav","./audio/Guitar_5.wav"];
-const melodyTrackPaths = ["./audio/Melody_1.wav","./audio/Melody_2.wav","./audio/Melody_3.wav","./audio/Melody_4.wav","./audio/Melody_5.wav"];
-const pianoTrackPaths = ["./audio/Piano_1.wav","./audio/Piano_2.wav","./audio/Piano_3.wav","./audio/Piano_4.wav","./audio/Piano_5.wav"];
+const drumTrackPaths = ["./audio/Drum_1.wav", "./audio/Drum_2.wav", "./audio/Drum_3.wav", "./audio/Drum_4.wav", "./audio/Drum_5.wav"];
+const guitarTrackPaths = ["./audio/Guitar_1.wav", "./audio/Guitar_2.wav", "./audio/Guitar_3.wav", "./audio/Guitar_4.wav", "./audio/Guitar_5.wav"];
+const melodyTrackPaths = ["./audio/Melody_1.wav", "./audio/Melody_2.wav", "./audio/Melody_3.wav", "./audio/Melody_4.wav", "./audio/Melody_5.wav"];
+const pianoTrackPaths = ["./audio/Piano_1.wav", "./audio/Piano_2.wav", "./audio/Piano_3.wav", "./audio/Piano_4.wav", "./audio/Piano_5.wav"];
 
 const trackPaths = drumTrackPaths.concat(guitarTrackPaths).concat(melodyTrackPaths).concat(pianoTrackPaths);
 
@@ -45,58 +45,57 @@ setupBtn.addEventListener("click", () => {
         playingTracks.push(playTrack(track, 0).start());
       }
       let i = 0;
-      while (i < gainNodes.length){
-        if (i%5 != 0) {
-          gainNodes[i].gain.value = 0;
-          currentlyPlaying.push(gainNodes[i]);
-        }
+      while (i < gainNodes.length - 1) {
+        gainNodes[i].gain.value = 0;
+        currentlyPlaying.push(gainNodes[i]);
         i++;
       }
-      setInterval(changeTrack, 2*oneBar);
+      setInterval(changeTrack, 2 * oneBar);
     });
 
-    pauseBtn.onclick = function() {
-      if(audioContext.state === 'running') {
-        audioContext.suspend().then(function() {
+    pauseBtn.onclick = function () {
+      if (audioContext.state === 'running') {
+        audioContext.suspend().then(function () {
           pauseBtn.textContent = 'RESUME';
         });
-      } else if(audioContext.state === 'suspended') {
-        audioContext.resume().then(function() {
+      } else if (audioContext.state === 'suspended') {
+        audioContext.resume().then(function () {
           pauseBtn.textContent = 'PAUSE';
-        });  
+        });
       }
     }
   });
 })
 
-function changeTrack(){
-  const typeToChange = getRndInteger(1,6);
+function changeTrack() {
+  const typeToChange = getRndInteger(1, 6);
   console.log(typeToChange);
-  if (typeToChange == 5){ //sets one track at random to silent for 1 bar to create a sort of beat droppy effect
-    const typeToMute = getRndInteger(1,5);
+  if (typeToChange == 5) { //sets one track at random to silent for 1 bar to create a sort of beat droppy effect
+    const typeToMute = getRndInteger(1, 5);
     const trackToChange = currentlyPlaying[typeToChange - 1];
     trackToChange.gain.value = 0;
-    setTimeout(() => { 
+    setTimeout(() => {
       trackToChange.gain.value = 1;
     }, oneBar);
-  } else{ //swaps one track for another of the same type. sometimes changes it for itself causing no change so that the changes don't feel as consistent.
+  } else { //swaps one track for another of the same type. sometimes changes it for itself causing no change so that the changes don't feel as consistent.
     const trackToChange = currentlyPlaying[typeToChange - 1]; //trackToChange is actually a gain node, not a track
     trackToChange.gain.value = 0;
-    const newTrack = gainNodes[getRndInteger((typeToChange - 1) * 5,(typeToChange * 5) - 1)];
+    const newTrack = gainNodes[getRndInteger((typeToChange - 1) * 5, (typeToChange * 5) - 1)];
     newTrack.gain.value = 1;
     currentlyPlaying[typeToChange - 1] = newTrack;
   }
+  
 }
 
 
 
 //min is inclusive, max is not. 
 function getRndInteger(min, max) {
-  return Math.floor(Math.random() * (max - min) ) + min;
+  return Math.floor(Math.random() * (max - min)) + min;
 }
 
 
-async function getAudioFile(filePath){
+async function getAudioFile(filePath) {
   const response = await fetch(filePath);
   const arrayBuffer = await response.arrayBuffer();
   const audioBuffer = await audioContext.decodeAudioData(arrayBuffer);
@@ -110,7 +109,7 @@ async function getAudioFile(filePath){
 async function setupTracks(paths) {
   console.log("Setting up tracks")
   const audioBuffers = [];
-  for (const path of paths){
+  for (const path of paths) {
     const track = await getAudioFile(path);
     audioBuffers.push(track);
   }
@@ -118,7 +117,7 @@ async function setupTracks(paths) {
   return audioBuffers;
 }
 
-function playTrack(audioBuffer, time){
+function playTrack(audioBuffer, time) {
   const trackSource = audioContext.createBufferSource();
   trackSource.buffer = audioBuffer;
   volume = audioContext.createGain();
