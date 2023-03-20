@@ -6,10 +6,11 @@ let gainNodes = [];
 let tracks; //Drums, Piano, Melody, Guitar
 
 const currentlyPlaying = []; //set of VOLUME nodes NOT audio
-const startBtn = document.querySelector(".start");
-const setupBtn = document.querySelector(".setupTracks");
-const playBtn = document.querySelector(".playSample");
-const pauseBtn = document.querySelector(".pause");
+// const startBtn = document.querySelector(".start");
+// const setupBtn = document.querySelector(".setupTracks");
+// const playBtn = document.querySelector(".playSample");
+// const pauseBtn = document.querySelector(".pause");
+const properBtn = document.querySelector(".realStart");
 
 const oneBar = 5647; // length of one bar. TODO: update
 /* Note: The new sounds that I added in are all 5.647 second long. 
@@ -19,6 +20,8 @@ the best when I listened to it on garageband
 */
 let nextTime = 0;
 
+let started = false; // a boolean checking if the button should play/pause
+
 const drumTrackPaths = ["./audio/Drum_1.wav", "./audio/Drum_2.wav", "./audio/Drum_3.wav", "./audio/Drum_4.wav", "./audio/Drum_5.wav"];
 const guitarTrackPaths = ["./audio/Guitar_1.wav", "./audio/Guitar_2.wav", "./audio/Guitar_3.wav", "./audio/Guitar_4.wav", "./audio/Guitar_5.wav"];
 const melodyTrackPaths = ["./audio/Melody_1.wav", "./audio/Melody_2.wav", "./audio/Melody_3.wav", "./audio/Melody_4.wav", "./audio/Melody_5.wav"];
@@ -26,19 +29,14 @@ const pianoTrackPaths = ["./audio/Piano_1.wav", "./audio/Piano_2.wav", "./audio/
 
 const trackPaths = drumTrackPaths.concat(guitarTrackPaths).concat(melodyTrackPaths).concat(pianoTrackPaths);
 
-
-
-startBtn.addEventListener("click", () => {
+properBtn.addEventListener("click", () => {
   audioContext = new AudioContext();
   console.log("Started the Audio Context");
-});
-
-setupBtn.addEventListener("click", () => {
-  setupTracks(trackPaths).then((response) => {
-    let tracks = response;
-    console.log(tracks);
-
-    playBtn.addEventListener("click", () => {
+  if (started == false) {
+    started = true;
+    setupTracks(trackPaths).then((response) => {
+      let tracks = response;
+      console.log(tracks);
       const playingTracks = [];
       for (const track of tracks) {
         nextTime = audioContext.currentTime;
@@ -46,26 +44,70 @@ setupBtn.addEventListener("click", () => {
       }
       let i = 0;
       while (i < gainNodes.length - 1) {
-        gainNodes[i].gain.value = 0;
-        currentlyPlaying.push(gainNodes[i]);
+        if (i%5 != 0){
+          gainNodes[i].gain.value = 0;
+          currentlyPlaying.push(gainNodes[i]);
+        }
         i++;
       }
       setInterval(changeTrack, 2 * oneBar);
     });
-
-    pauseBtn.onclick = function () {
-      if (audioContext.state === 'running') {
-        audioContext.suspend().then(function () {
-          pauseBtn.textContent = 'RESUME';
-        });
-      } else if (audioContext.state === 'suspended') {
-        audioContext.resume().then(function () {
-          pauseBtn.textContent = 'PAUSE';
-        });
-      }
+  } else { // if the audio is already playing/paused
+    if (audioContext.state === 'running') {
+      audioContext.suspend().then(function () {
+        pauseBtn.textContent = 'RESUME';
+      });
+    } else if (audioContext.state === 'suspended') {
+      audioContext.resume().then(function () {
+        pauseBtn.textContent = 'PAUSE';
+      });
     }
-  });
+  }
 })
+
+
+
+
+// startBtn.addEventListener("click", () => {
+//   audioContext = new AudioContext();
+//   console.log("Started the Audio Context");
+// });
+
+// setupBtn.addEventListener("click", () => {
+//   setupTracks(trackPaths).then((response) => {
+//     let tracks = response;
+//     console.log(tracks);
+
+//     playBtn.addEventListener("click", () => {
+//       const playingTracks = [];
+//       for (const track of tracks) {
+//         nextTime = audioContext.currentTime;
+//         playingTracks.push(playTrack(track, 0).start());
+//       }
+//       let i = 0;
+//       while (i < gainNodes.length - 1) {
+//         if (i%5 != 0){
+//          gainNodes[i].gain.value = 0;
+//          currentlyPlaying.push(gainNodes[i]);
+//         }
+//         i++;
+//       }
+//       setInterval(changeTrack, 2 * oneBar);
+//     });
+
+//     pauseBtn.onclick = function () {
+//       if (audioContext.state === 'running') {
+//         audioContext.suspend().then(function () {
+//           pauseBtn.textContent = 'RESUME';
+//         });
+//       } else if (audioContext.state === 'suspended') {
+//         audioContext.resume().then(function () {
+//           pauseBtn.textContent = 'PAUSE';
+//         });
+//       }
+//     }
+//   });
+// })
 
 function changeTrack() {
   const typeToChange = getRndInteger(1, 6);
