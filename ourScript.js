@@ -38,6 +38,11 @@ const pianoTrackPaths = ["./audio/Piano_1.wav", "./audio/Piano_2.wav", "./audio/
 
 const trackPaths = drumTrackPaths.concat(guitarTrackPaths).concat(melodyTrackPaths).concat(pianoTrackPaths);
 
+const forestAudio = new Audio('./audio/Nature_Forest.wav');
+const grasslandsAudio = new Audio('./audio/Nature_Grasslands.wav');
+const oceanAudio = new Audio('./audio/Nature_Ocean.wav');
+const rainAudio = new Audio('./audio/Nature_Rain.wav');
+
 properBtn.addEventListener("click", () => {
   audioContext = new AudioContext();
   console.log("Started the Audio Context");
@@ -177,4 +182,46 @@ function playTrack(audioBuffer, time) {
   trackSource.connect(volume);
   trackSource.loop = true;
   return trackSource;
+}
+
+
+// fix repeated code - make into one method
+function playForest() {
+  checkbox = document.getElementById('forest');
+  if (checkbox.checked) {
+    forestAudio.play();
+    forestAudio.loop = true;
+  } else {
+    forestAudio.pause();
+  }
+}
+
+  function playOcean() {
+    checkbox = document.getElementById('ocean');
+    if (checkbox.checked) {
+      oceanAudio.play();
+      oceanAudio.loop = true;
+    } else {
+      oceanAudio.pause();
+    }
+}
+
+function playGrasslands() {
+  checkbox = document.getElementById('grasslands');
+  if (checkbox.checked) {
+    grasslandsAudio.play();
+    grasslandsAudio.loop = true;
+  } else {
+    grasslandsAudio.pause();
+  }
+}
+
+function playRain() {
+  checkbox = document.getElementById('rain');
+  if (checkbox.checked) {
+    rainAudio.play();
+    rainAudio.loop = true;
+  } else {
+    rainAudio.pause();
+  }
 }

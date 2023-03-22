@@ -11,9 +11,20 @@ button {
     display: inline-block;
     font-size: 16px;
     transition-duration: 0.4s;
-}
+    }
+    button:hover {
+        background-color: #008CBA; /* Blue */
+        color: white;
+    }
 
-button:hover {
-    background-color: #008CBA; /* Blue */
-    color: white;
-}
+label {
+    border:1px solid #ccc;
+    padding:10px;
+    margin:0 0 10px;
+    display:block; 
+   }
+   
+   label:hover {
+    background:#008CBA;
+    cursor:pointer;
+   }
