@@ -43,8 +43,8 @@ const grasslandsAudio = new Audio('./audio/Nature_Grasslands.wav');
 const oceanAudio = new Audio('./audio/Nature_Ocean.wav');
 const rainAudio = new Audio('./audio/Nature_Rain.wav');
 
+audioContext = new AudioContext();
 properBtn.addEventListener("click", () => {
-  audioContext = new AudioContext();
   console.log("Started the Audio Context");
   if (started == false) {
     started = true;
@@ -69,11 +69,11 @@ properBtn.addEventListener("click", () => {
   } else { // if the audio is already playing/paused
     if (audioContext.state === 'running') {
       audioContext.suspend().then(function () {
-        pauseBtn.textContent = 'RESUME';
+        properBtn.textContent = 'RESUME';
       });
     } else if (audioContext.state === 'suspended') {
       audioContext.resume().then(function () {
-        pauseBtn.textContent = 'PAUSE';
+        properBtn.textContent = 'PAUSE';
       });
     }
   }
