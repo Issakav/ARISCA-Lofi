@@ -10,7 +10,9 @@ button {
     text-decoration: none;
     display: inline-block;
     font-size: 16px;
+    font-family: Georgia, 'Times New Roman', Times, serif;
     transition-duration: 0.4s;
+    /* margin: 50px 500px; */
     }
     button:hover {
         background-color: #008CBA; /* Blue */
@@ -18,13 +20,22 @@ button {
     }
 
 label {
-    border:1px solid #ccc;
+    border:1px solid #000000;
+    width: 298px;
+    height: 20px;
     padding:10px;
-    margin:0 0 10px;
+    margin:5px 0 10px;
     display:block; 
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
    }
    
    label:hover {
     background:#008CBA;
     cursor:pointer;
    }
+
+fieldset{
+    border:1px solid #000000;
+    width: 300px;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+}

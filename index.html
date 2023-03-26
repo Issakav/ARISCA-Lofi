@@ -2,6 +2,11 @@
 <html>
 <head>
     <link rel="stylesheet" href="mystyle.css">
+    <style>
+        .myDiv{
+            text-align: center;
+        }
+    </style>
 </head>
 <body>
     <audio src="./audio/testDrums.mp3" loop></audio>
@@ -12,12 +17,18 @@
     <button class = "setupTracks">SETUP TRACKS</button>
     <button class="playSample">START</button>
     <button class="pause">PAUSE</button> -->
-    <button class="realStart">PLAY</button>
+    <div class="myDiv">
+        <button class="realStart">PLAY MUSIC</button>
+    </div>
+    <fieldset>
+        <legend>Choose a background noise:</legend>
+        <label><input type="checkbox" id="forest" onchange="playForest()"/> Forest Sounds </label>
+        <label><input type="checkbox" id="grasslands" onchange="playGrasslands()"/> Grasslands Sounds </label>
+        <label><input type="checkbox" id="ocean" onchange="playOcean()"/> Ocean Sounds </label>
+        <label><input type="checkbox" id="rain" onchange="playRain()"/> Rain Sounds </label>
+    </fieldset>
     <label><input type="checkbox" id="like" onchange="changeTrack()"/> LIKE TRACKS </label>
-    <label><input type="checkbox" id="forest" onchange="playForest()"/> Forest Sounds </label>
-    <label><input type="checkbox" id="grasslands" onchange="playGrasslands()"/> Grasslands Sounds </label>
-    <label><input type="checkbox" id="ocean" onchange="playOcean()"/> Ocean Sounds </label>
-    <label><input type="checkbox" id="rain" onchange="playRain()"/> Rain Sounds </label>
+    
     <!-- <input type="range" id="volumeSlider"> -->
     <script src = "./ourScript.js"></script>
 </body>
