@@ -11,6 +11,7 @@ const currentlyPlaying = []; //set of VOLUME nodes NOT audio
 // const playBtn = document.querySelector(".playSample");
 // const pauseBtn = document.querySelector(".pause");
 const properBtn = document.querySelector(".realStart");
+const likeCheckbox = document.getElementById('like');
 
 const oneBar = 5647; // length of one bar. TODO: update
 /* Note: The new sounds that I added in are all 5.647 second long. 
@@ -79,9 +80,6 @@ properBtn.addEventListener("click", () => {
   }
 })
 
-
-
-
 // startBtn.addEventListener("click", () => {
 //   audioContext = new AudioContext();
 //   console.log("Started the Audio Context");
@@ -124,26 +122,25 @@ properBtn.addEventListener("click", () => {
 // })
 
 function changeTrack() {
-  const typeToChange = getRndInteger(1, 6);
-  console.log(typeToChange);
-  if (typeToChange == 5) { //sets one track at random to silent for 1 bar to create a sort of beat droppy effect
-    const typeToMute = getRndInteger(1, 5);
-    const trackToChange = currentlyPlaying[typeToChange - 1];
-    trackToChange.gain.value = 0;
-    setTimeout(() => {
-      trackToChange.gain.value = 1;
-    }, oneBar);
-  } else { //swaps one track for another of the same type. sometimes changes it for itself causing no change so that the changes don't feel as consistent.
-    const trackToChange = currentlyPlaying[typeToChange - 1]; //trackToChange is actually a gain node, not a track
-    trackToChange.gain.value = 0;
-    const newTrack = gainNodes[getRndInteger((typeToChange - 1) * 5, (typeToChange * 5) - 1)];
-    newTrack.gain.value = 1;
-    currentlyPlaying[typeToChange - 1] = newTrack;
+  if (!likeCheckbox.checked) { // doesn't change tracks like usual if like button is pressed
+    const typeToChange = getRndInteger(1, 6);
+    console.log(typeToChange);
+    if (typeToChange == 5) { //sets one track at random to silent for 1 bar to create a sort of beat droppy effect
+      const typeToMute = getRndInteger(1, 5); // ?
+      const trackToChange = currentlyPlaying[typeToChange - 1]; // ?
+      trackToChange.gain.value = 0;
+      setTimeout(() => {
+        trackToChange.gain.value = 1;
+      }, oneBar);
+    } else { //swaps one track for another of the same type. sometimes changes it for itself causing no change so that the changes don't feel as consistent.
+      const trackToChange = currentlyPlaying[typeToChange - 1]; //trackToChange is actually a gain node, not a track
+      trackToChange.gain.value = 0;
+      const newTrack = gainNodes[getRndInteger((typeToChange - 1) * 5, (typeToChange * 5) - 1)];
+      newTrack.gain.value = 1;
+      currentlyPlaying[typeToChange - 1] = newTrack;
+    }
   }
-  
 }
-
-
 
 //min is inclusive, max is not. 
 function getRndInteger(min, max) {
