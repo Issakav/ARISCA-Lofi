@@ -44,10 +44,13 @@ const grasslandsAudio = new Audio('./audio/Nature_Grasslands.wav');
 const oceanAudio = new Audio('./audio/Nature_Ocean.wav');
 const rainAudio = new Audio('./audio/Nature_Rain.wav');
 
-audioContext = new AudioContext();
+
+
 properBtn.addEventListener("click", () => {
-  console.log("Started the Audio Context");
   if (started == false) {
+    audioContext = new AudioContext();
+    console.log("Started the Audio Context");
+    properBtn.textContent = 'PAUSE';
     started = true;
     setupTracks(trackPaths).then((response) => {
       let tracks = response;
