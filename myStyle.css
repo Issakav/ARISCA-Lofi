@@ -2,6 +2,32 @@ body {
     background-color: lightblue;
 }
 
+.controls {
+    text-align: center;
+}
+
+.primary {
+    font-size: 300%;
+    border: 12px solid magenta;
+    background-color: yellow;
+    color: teal;
+    border-radius: 1ex;
+    margin: 3em;
+}
+
+/* CSS selector */
+
+/*
+
+.primary.fancy      <-- must have both classes
+.controls .primary  <-- (NB: space!) primary inside controls
+button.primary      <-- <button> element with class="primary"
+
+.nature-sounds input   <-- matching HTML element name, using nesting
+.nature-sounds .choice <-- matching custom class attribute, using nesting
+
+*/
+
 button {
     border: none;
     color: black;
@@ -13,11 +39,12 @@ button {
     font-family: Georgia, 'Times New Roman', Times, serif;
     transition-duration: 0.4s;
     /* margin: 50px 500px; */
-    }
-    button:hover {
-        background-color: #008CBA; /* Blue */
-        color: white;
-    }
+}
+
+button:hover {
+    background-color: #008CBA; /* Blue */
+    color: white;
+}
 
 label {
     border:1px solid #000000;
@@ -27,14 +54,14 @@ label {
     margin:5px 0 10px;
     display:block; 
     font-family: Verdana, Geneva, Tahoma, sans-serif;
-   }
-   
-   label:hover {
+}
+
+label:hover {
     background:#008CBA;
     cursor:pointer;
-   }
+}
 
-fieldset{
+fieldset {
     border:1px solid #000000;
     width: 300px;
     font-family: Verdana, Geneva, Tahoma, sans-serif;
