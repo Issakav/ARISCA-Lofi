@@ -44,7 +44,7 @@ const grasslandsAudio = new Audio('./audio/Nature_Grasslands.wav');
 const oceanAudio = new Audio('./audio/Nature_Ocean.wav');
 const rainAudio = new Audio('./audio/Nature_Rain.wav');
 
-
+let changedTrack = null; 
 
 properBtn.addEventListener("click", () => {
   if (started == false) {
@@ -142,7 +142,35 @@ function changeTrack() {
       newTrack.gain.value = 1;
       currentlyPlaying[typeToChange - 1] = newTrack;
     }
-  }
+  } 
+  // else {
+  //   if (changedTrack != null) {
+  //     changedTrack.gain.value = 0;
+  //   } 
+  //   let setTracks = [];
+  //   for (i = 0; i < currentlyPlaying.length; i++) {
+  //     setTracks[i] = currentlyPlaying[i];
+  //   }
+  //   for (const track of setTracks) {
+  //     track.gain.value = 1;
+  //   }
+  //   const typeToChange = getRndInteger(1, 6);
+  //   if (typeToChange == 5) { //sets one track at random to silent for 1 bar to create a sort of beat droppy effect
+  //     const typeToMute = getRndInteger(1, 5); // ?
+  //     const trackToChange = setTracks[typeToChange - 1]; // ?
+  //     trackToChange.gain.value = 0;
+  //     setTimeout(() => {
+  //       trackToChange.gain.value = 1;
+  //     }, oneBar);
+  //   } else { //swaps one track for another of the same type. sometimes changes it for itself causing no change so that the changes don't feel as consistent.
+  //     const trackToChange = setTracks[typeToChange - 1]; //trackToChange is actually a gain node, not a track
+  //     trackToChange.gain.value = 0;
+  //     const newTrack = gainNodes[getRndInteger((typeToChange - 1) * 5, (typeToChange * 5) - 1)];
+  //     newTrack.gain.value = 1;
+  //     setTracks[typeToChange - 1].gain.value = 0;
+  //     changedTrack = newTrack;
+  //   }
+  // }
 }
 
 //min is inclusive, max is not. 
