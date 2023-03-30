@@ -1,18 +1,9 @@
 body {
-    background-color: lightblue;
+    background-color: rgb(194, 182, 165);
 }
 
 .controls {
     text-align: center;
-}
-
-.primary {
-    font-size: 300%;
-    border: 12px solid magenta;
-    background-color: yellow;
-    color: teal;
-    border-radius: 1ex;
-    margin: 3em;
 }
 
 /* CSS selector */
@@ -34,17 +25,56 @@ button {
     padding: 15px 32px;
     text-align: center;
     text-decoration: none;
-    display: inline-block;
+    display:list-item;
     font-size: 16px;
     font-family: Georgia, 'Times New Roman', Times, serif;
     transition-duration: 0.4s;
     /* margin: 50px 500px; */
 }
 
-button:hover {
-    background-color: #008CBA; /* Blue */
+.primary {
+    font-size: 300%;
+    border: 12px solid rgb(5, 65, 20);
+    background-color: rgb(187, 255, 189);
+    color: rgb(5, 65, 20);
+    border-radius: 1ex;
+    margin-top: 3em;
+    margin-left: 5em;
+    margin-right: 5em;
+    margin-bottom: .5em;
+    /* margin-left: auto; */
+}
+
+.secondary {
+    font-size:100%;
+    border: 12px solid rgb(65, 5, 5);
+    background-color: rgb(255, 187, 187);
+    color: rgb(65, 5, 5);
+    border-radius: 5ex;
+    margin-bottom: 3em;
+    margin-left: 19em;
+    margin-right: 5em;
+}
+
+.primary:hover {
+    background-color: rgb(5, 65, 20); /* Blue */
     color: white;
 }
+
+ .secondary:focus { /* This kinda doesn't work yet */
+    background-color: rgb(65, 5, 5);
+    color: rgb(255, 187, 187);
+}
+
+.secondary:hover{
+    background-color: rgb(65, 5, 5);
+    color: rgb(255, 187, 187);
+}
+
+/* .secondary:visited {
+    background-color: rgb(255, 187, 187);
+    color: rgb(65, 5, 5);
+} */
 
 label {
     border:1px solid #000000;
@@ -59,6 +89,10 @@ label {
 label:hover {
     background:#008CBA;
     cursor:pointer;
+}
+
+#like {
+    color:blue;
 }
 
 fieldset {

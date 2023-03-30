@@ -10,8 +10,12 @@ const currentlyPlaying = []; //set of VOLUME nodes NOT audio
 // const setupBtn = document.querySelector(".setupTracks");
 // const playBtn = document.querySelector(".playSample");
 // const pauseBtn = document.querySelector(".pause");
-const properBtn = document.querySelector(".realStart");
+const properBtn = document.querySelector(".primary");
 const likeCheckbox = document.getElementById('like');
+
+const likeBtn = docuent.querySelector(".secondary"); 
+    //Added this if we want to switch to button for visual purposes.
+
 
 const oneBar = 5647; // length of one bar. TODO: update
 /* Note: The new sounds that I added in are all 5.647 second long. 
