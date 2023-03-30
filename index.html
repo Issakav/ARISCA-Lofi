@@ -9,18 +9,19 @@
     </style>
 </head>
 <body>
+    
     <div class="buttonClass">
+        <fieldset>
+            <legend>Choose a background noise:</legend>
+            <label><input type="checkbox" id="forest" onchange="playForest()"/> Forest Sounds </label>
+            <label><input type="checkbox" id="grasslands" onchange="playGrasslands()"/> Grasslands Sounds </label>
+            <label><input type="checkbox" id="ocean" onchange="playOcean()"/> Ocean Sounds </label>
+            <label><input type="checkbox" id="rain" onchange="playRain()"/> Rain Sounds </label>
+        </fieldset>
         <button class="primary">PLAY MUSIC</button>
         <button class="secondary">I LIKE IT</button>
     </div>
         <label><input type="checkbox" id="like" onchange="changeTrack()"/> LIKE TRACKS </label>
-    <fieldset>
-        <legend>Choose a background noise:</legend>
-        <label><input type="checkbox" id="forest" onchange="playForest()"/> Forest Sounds </label>
-        <label><input type="checkbox" id="grasslands" onchange="playGrasslands()"/> Grasslands Sounds </label>
-        <label><input type="checkbox" id="ocean" onchange="playOcean()"/> Ocean Sounds </label>
-        <label><input type="checkbox" id="rain" onchange="playRain()"/> Rain Sounds </label>
-    </fieldset>
     
 
     <!-- <input type="range" id="volumeSlider"> -->
