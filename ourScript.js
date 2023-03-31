@@ -13,7 +13,7 @@ const currentlyPlaying = []; //set of VOLUME nodes NOT audio
 const properBtn = document.querySelector(".primary");
 const likeCheckbox = document.getElementById('like');
 
-const likeBtn = docuent.querySelector(".secondary"); 
+// const likeBtn = docuent.querySelector(".secondary"); 
     //Added this if we want to switch to button for visual purposes.
 
 
