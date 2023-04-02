@@ -20,50 +20,38 @@ button.primary      <-- <button> element with class="primary"
 */
 
 button {
-    border: none;
-    color: black;
     padding: 15px 32px;
-    text-align: center;
     text-decoration: none;
-    display:inline-block;
     font-size: 16px;
     font-family: Georgia, 'Times New Roman', Times, serif;
     transition-duration: 0.4s;
-    /* margin: 50px 500px; */
 }
 
+/* Play, pause, resume */
 .primary {
     font-size: 300%;
     border: 12px solid rgb(5, 65, 20);
     background-color: rgb(187, 255, 189);
     color: rgb(5, 65, 20);
     border-radius: 1ex;
-    margin-top: 3em;
-    margin-left: 5em;
-    margin-right: 5em;
+    display:grid;
+    margin: auto;
+    margin-top: 2em;
     margin-bottom: .5em;
-    /* margin-left: auto; */
-}
-
-.secondary {
-    font-size:100%;
-    border: 12px solid rgb(65, 5, 5);
-    background-color: rgb(255, 187, 187);
-    color: rgb(65, 5, 5);
-    border-radius: 5ex;
-    margin-bottom: 3em;
-    margin-left: 19em;
-    margin-right: 5em;
 }
 
 .primary:hover {
-    background-color: rgb(5, 65, 20); /* Blue */
-    color: white;
+    background-color: rgb(5, 65, 20);
+    color: rgb(187, 255, 189);
 }
 
- .secondary:focus { /* This kinda doesn't work yet */
-    background-color: rgb(65, 5, 5);
-    color: rgb(255, 187, 187);
+/* Like and change it up */
+.secondary{
+    font-size:100%;
+    border-radius: 5ex;
+    border: 12px solid rgb(65, 5, 5);
+    background-color: rgb(255, 187, 187);
+    color: rgb(65, 5, 5);
 }
 
 .secondary:hover{
@@ -75,6 +63,23 @@ button {
     background-color: rgb(255, 187, 187);
     color: rgb(65, 5, 5);
 } */
+
+/* like button specifically */
+.secondary.holdsColor{
+    border: 12px solid rgb(5, 65, 20);
+    background-color: rgb(187, 255, 189);
+    color: rgb(5, 65, 20);
+}
+
+.secondary.holdsColor:hover {
+    background-color: rgb(5, 65, 20);
+    color: rgb(187, 255, 189);
+}
+
+.secondary.holdsColor:focus { /* This kinda doesn't work yet */
+    background-color: rgb(5, 65, 20);
+    color: rgb(187, 255, 189);
+}
 
 label {
     border:1px solid #000000;
@@ -103,4 +108,5 @@ fieldset {
     margin: auto;
     margin-top: 30px;
     font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    text-align: center;
 }

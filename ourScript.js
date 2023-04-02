@@ -13,7 +13,7 @@ const currentlyPlaying = []; //set of VOLUME nodes NOT audio
 const properBtn = document.querySelector(".primary");
 const likeCheckbox = document.getElementById('like');
 
-// const likeBtn = docuent.querySelector(".secondary"); 
+// const likeBtn = document.querySelector(".secondary"); 
     //Added this if we want to switch to button for visual purposes.
 
 
@@ -54,7 +54,7 @@ properBtn.addEventListener("click", () => {
   if (started == false) {
     audioContext = new AudioContext();
     console.log("Started the Audio Context");
-    properBtn.textContent = 'PAUSE';
+    properBtn.textContent = 'PAUSE MUSIC';
     started = true;
     setupTracks(trackPaths).then((response) => {
       let tracks = response;
@@ -78,11 +78,11 @@ properBtn.addEventListener("click", () => {
   } else { // if the audio is already playing/paused
     if (audioContext.state === 'running') {
       audioContext.suspend().then(function () {
-        properBtn.textContent = 'RESUME';
+        properBtn.textContent = 'RESUME MUSIC';
       });
     } else if (audioContext.state === 'suspended') {
       audioContext.resume().then(function () {
-        properBtn.textContent = 'PAUSE';
+        properBtn.textContent = 'PAUSE MUSIC';
       });
     }
   }
