@@ -6,10 +6,6 @@ let gainNodes = [];
 let tracks; //Drums, Piano, Melody, Guitar
 
 const currentlyPlaying = []; //set of VOLUME nodes NOT audio
-// const startBtn = document.querySelector(".start");
-// const setupBtn = document.querySelector(".setupTracks");
-// const playBtn = document.querySelector(".playSample");
-// const pauseBtn = document.querySelector(".pause");
 const properBtn = document.querySelector(".primary");
 const likeButton = document.getElementById("like");
 
@@ -41,7 +37,11 @@ const guitarTrackPaths = ["./audio/Guitar_1.wav", "./audio/Guitar_2.wav", "./aud
 const melodyTrackPaths = ["./audio/Melody_1.wav", "./audio/Melody_2.wav", "./audio/Melody_3.wav", "./audio/Melody_4.wav", "./audio/Melody_5.wav"];
 const pianoTrackPaths = ["./audio/Piano_1.wav", "./audio/Piano_2.wav", "./audio/Piano_3.wav", "./audio/Piano_4.wav", "./audio/Piano_5.wav"];
 
-const trackPaths = drumTrackPaths.concat(guitarTrackPaths).concat(melodyTrackPaths).concat(pianoTrackPaths);
+let trackPaths = [];
+trackPaths = trackPaths.concat(drumTrackPaths);
+trackPaths = trackPaths.concat(guitarTrackPaths);
+trackPaths = trackPaths.concat(melodyTrackPaths);
+trackPaths = trackPaths.concat(pianoTrackPaths);
 
 const forestAudio = new Audio('./audio/Nature_Forest.wav');
 const grasslandsAudio = new Audio('./audio/Nature_Grasslands.wav');
@@ -66,10 +66,13 @@ properBtn.addEventListener("click", () => {
         playingTracks.push(playTrack(track, 0).start());
       }
       let i = 0;
-      while (i < gainNodes.length - 1) {
+      console.log(0);
+      while (i < gainNodes.length) {
         if (i%5 != 0){
+          console.log(i);
           gainNodes[i].gain.value = 0;
         } else {
+          console.log(i + "mod");
           currentlyPlaying.push(gainNodes[i]);
         }
         i++;
@@ -141,12 +144,12 @@ likeButton.addEventListener("click", () => {
 // })
 
 function changeTrack() {
-  if (liked == true) { // doesn't change tracks like usual if like button is pressed
+  if (liked != true) { // doesn't change tracks like usual if like button is pressed
     const typeToChange = getRndInteger(1, 6);
     console.log(typeToChange);
     if (typeToChange == 5) { //sets one track at random to silent for 1 bar to create a sort of beat droppy effect
-      const typeToMute = getRndInteger(1, 5); // ?
-      const trackToChange = currentlyPlaying[typeToChange - 1]; // ?
+      const typeToMute = getRndInteger(1, 5);
+      const trackToChange = currentlyPlaying[typeToMute - 1];
       trackToChange.gain.value = 0;
       setTimeout(() => {
         trackToChange.gain.value = 1;
@@ -154,7 +157,7 @@ function changeTrack() {
     } else { //swaps one track for another of the same type. sometimes changes it for itself causing no change so that the changes don't feel as consistent.
       const trackToChange = currentlyPlaying[typeToChange - 1]; //trackToChange is actually a gain node, not a track
       trackToChange.gain.value = 0;
-      const newTrack = gainNodes[getRndInteger((typeToChange - 1) * 5, (typeToChange * 5) - 1)];
+      const newTrack = gainNodes[getRndInteger((typeToChange-1) * 5, (typeToChange * 5) -1)];//[getRndInteger((typeToChange - 1) * 5, (typeToChange * 5) - 1)];
       newTrack.gain.value = 1;
       currentlyPlaying[typeToChange - 1] = newTrack;
     }
@@ -171,9 +174,10 @@ function changeTrack() {
       track.gain.value = 1;
     }
     const typeToChange = getRndInteger(1, 6);
+    console.log(typeToChange);
     if (typeToChange == 5) { //sets one track at random to silent for 1 bar to create a sort of beat droppy effect
       const typeToMute = getRndInteger(1, 5); // ?
-      const trackToChange = setTracks[typeToChange - 1]; // ?
+      const trackToChange = setTracks[typeToMute - 1];
       trackToChange.gain.value = 0;
       setTimeout(() => {
         trackToChange.gain.value = 1;
@@ -181,7 +185,7 @@ function changeTrack() {
     } else { //swaps one track for another of the same type. sometimes changes it for itself causing no change so that the changes don't feel as consistent.
       const trackToChange = setTracks[typeToChange - 1]; //trackToChange is actually a gain node, not a track
       trackToChange.gain.value = 0;
-      const newTrack = gainNodes[getRndInteger((typeToChange - 1) * 5, (typeToChange * 5) - 1)];
+      const newTrack = gainNodes[getRndInteger((typeToChange-1) * 5, (typeToChange * 5) -1)]; //[getRndInteger((typeToChange - 1) * 5, (typeToChange * 5) - 1)];
       newTrack.gain.value = 1;
       setTracks[typeToChange - 1].gain.value = 0;
       changedTrack = newTrack;
