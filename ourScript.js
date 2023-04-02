@@ -11,7 +11,7 @@ const currentlyPlaying = []; //set of VOLUME nodes NOT audio
 // const playBtn = document.querySelector(".playSample");
 // const pauseBtn = document.querySelector(".pause");
 const properBtn = document.querySelector(".primary");
-const likeCheckbox = document.getElementById('like');
+const likeButton = document.getElementById("like");
 
 // const likeBtn = document.querySelector(".secondary"); 
     //Added this if we want to switch to button for visual purposes.
@@ -49,6 +49,7 @@ const oceanAudio = new Audio('./audio/Nature_Ocean.wav');
 const rainAudio = new Audio('./audio/Nature_Rain.wav');
 
 let changedTrack = null; 
+let liked = false;
 
 properBtn.addEventListener("click", () => {
   if (started == false) {
@@ -85,6 +86,16 @@ properBtn.addEventListener("click", () => {
         properBtn.textContent = 'PAUSE MUSIC';
       });
     }
+  }
+})
+
+likeButton.addEventListener("click", () => {
+  if (liked == false) {
+    liked = true;
+    changeTrack();
+  } else {
+    liked = false;
+    changeTrack();
   }
 })
 
@@ -130,7 +141,7 @@ properBtn.addEventListener("click", () => {
 // })
 
 function changeTrack() {
-  if (!likeCheckbox.checked) { // doesn't change tracks like usual if like button is pressed
+  if (liked == true) { // doesn't change tracks like usual if like button is pressed
     const typeToChange = getRndInteger(1, 6);
     console.log(typeToChange);
     if (typeToChange == 5) { //sets one track at random to silent for 1 bar to create a sort of beat droppy effect
