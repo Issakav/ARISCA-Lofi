@@ -9,8 +9,6 @@ const currentlyPlaying = []; //set of VOLUME nodes NOT audio
 const properBtn = document.querySelector(".primary");
 const likeButton = document.getElementById("like");
 
-// const likeBtn = document.querySelector(".secondary"); 
-    //Added this if we want to switch to button for visual purposes.
 
 
 const oneBar = 5647; // length of one bar. TODO: update
@@ -95,56 +93,15 @@ properBtn.addEventListener("click", () => {
 likeButton.addEventListener("click", () => {
   if (liked == false) {
     liked = true;
-    changeTrack();
   } else {
     liked = false;
-    changeTrack();
   }
 })
 
-// startBtn.addEventListener("click", () => {
-//   audioContext = new AudioContext();
-//   console.log("Started the Audio Context");
-// });
 
-// setupBtn.addEventListener("click", () => {
-//   setupTracks(trackPaths).then((response) => {
-//     let tracks = response;
-//     console.log(tracks);
-
-//     playBtn.addEventListener("click", () => {
-//       const playingTracks = [];
-//       for (const track of tracks) {
-//         nextTime = audioContext.currentTime;
-//         playingTracks.push(playTrack(track, 0).start());
-//       }
-//       let i = 0;
-//       while (i < gainNodes.length - 1) {
-//         if (i%5 != 0){
-//          gainNodes[i].gain.value = 0;
-//          currentlyPlaying.push(gainNodes[i]);
-//         }
-//         i++;
-//       }
-//       setInterval(changeTrack, 2 * oneBar);
-//     });
-
-//     pauseBtn.onclick = function () {
-//       if (audioContext.state === 'running') {
-//         audioContext.suspend().then(function () {
-//           pauseBtn.textContent = 'RESUME';
-//         });
-//       } else if (audioContext.state === 'suspended') {
-//         audioContext.resume().then(function () {
-//           pauseBtn.textContent = 'PAUSE';
-//         });
-//       }
-//     }
-//   });
-// })
 
 function changeTrack() {
-  if (liked != true) { // doesn't change tracks like usual if like button is pressed
+  if (liked != true) { 
     const typeToChange = getRndInteger(1, 6);
     console.log(typeToChange);
     if (typeToChange == 5) { //sets one track at random to silent for 1 bar to create a sort of beat droppy effect
