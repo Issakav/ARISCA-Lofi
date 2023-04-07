@@ -8,6 +8,7 @@ let tracks; //Drums, Piano, Melody, Guitar
 const currentlyPlaying = []; //set of VOLUME nodes NOT audio
 const properBtn = document.querySelector(".primary");
 const likeButton = document.getElementById("like");
+const changeButton = document.getElementById("changeIt");
 
 
 
@@ -29,6 +30,7 @@ They are unfortunately all different lengths
 let nextTime = 0;
 
 let started = false; // a boolean checking if the button should play/pause
+let playing = false;
 
 const drumTrackPaths = ["./audio/Drum_1.wav", "./audio/Drum_2.wav", "./audio/Drum_3.wav", "./audio/Drum_4.wav", "./audio/Drum_5.wav"];
 const guitarTrackPaths = ["./audio/Guitar_1.wav", "./audio/Guitar_2.wav", "./audio/Guitar_3.wav", "./audio/Guitar_4.wav", "./audio/Guitar_5.wav"];
@@ -51,6 +53,7 @@ let liked = false;
 
 properBtn.addEventListener("click", () => {
   if (started == false) {
+    playing = true;
     audioContext = new AudioContext();
     console.log("Started the Audio Context");
     properBtn.textContent = 'PAUSE MUSIC';
@@ -79,16 +82,18 @@ properBtn.addEventListener("click", () => {
     });
   } else { // if the audio is already playing/paused
     if (audioContext.state === 'running') {
+      playing = false;
       audioContext.suspend().then(function () {
         properBtn.textContent = 'RESUME MUSIC';
       });
     } else if (audioContext.state === 'suspended') {
+      playing = true;
       audioContext.resume().then(function () {
         properBtn.textContent = 'PAUSE MUSIC';
       });
     }
   }
-})
+});
 
 likeButton.addEventListener("click", () => {
   if (liked == false) {
@@ -96,7 +101,23 @@ likeButton.addEventListener("click", () => {
   } else {
     liked = false;
   }
-})
+});
+
+changeButton.addEventListener("click", () =>{
+  if (playing){
+    if (liked == true) {
+      //undo the like button effects
+      liked = false;
+    }
+    for (i = 0; i < currentlyPlaying.length; i++) {
+      currentlyPlaying[i].gain.value = 0;
+      const newTrack = gainNodes[getRndInteger((i) * 5, ((i+1) * 5) -1)];
+      newTrack.gain.value = 1;
+      currentlyPlaying[i] = newTrack;
+    }
+  }
+});
+
 
 
 
