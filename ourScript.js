@@ -47,6 +47,8 @@ const forestAudio = new Audio('./audio/Nature_Forest.wav');
 const grasslandsAudio = new Audio('./audio/Nature_Grasslands.wav');
 const oceanAudio = new Audio('./audio/Nature_Ocean.wav');
 const rainAudio = new Audio('./audio/Nature_Rain.wav');
+const fireplaceAudio = new Audio('./audio/Nature_Fireplace.mp3');
+const cafeAudio = new Audio('./audio/Nature_Cafe.mp3');
 
 let changedTrack = null; 
 let liked = false;
@@ -253,5 +255,25 @@ function playRain() {
     rainAudio.loop = true;
   } else {
     rainAudio.pause();
+  }
+}
+
+function playFireplace() {
+  checkbox = document.getElementById('fireplace');
+  if (checkbox.checked) {
+    fireplaceAudio.play();
+    fireplaceAudio.loop = true;
+  } else {
+    fireplaceAudio.pause();
+  }
+}
+
+function playCafe() {
+  checkbox = document.getElementById('cafe');
+  if (checkbox.checked) {
+    cafeAudio.play();
+    cafeAudio.loop = true;
+  } else {
+    cafeAudio.pause();
   }
 }
