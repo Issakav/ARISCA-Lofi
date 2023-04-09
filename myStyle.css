@@ -2,9 +2,9 @@ body {
     background-color: rgb(194, 182, 165);
 }
 
-.controls {
+/* .controls {
     text-align: center;
-}
+} */
 
 /* CSS selector */
 
@@ -25,6 +25,7 @@ button {
     font-size: 16px;
     font-family: Georgia, 'Times New Roman', Times, serif;
     transition-duration: 0.4s;
+    cursor: pointer;
 }
 
 /* Play, pause, resume */
@@ -36,7 +37,7 @@ button {
     border-radius: 1ex;
     display:grid;
     margin: auto;
-    margin-top: 2em;
+    margin-top: 1em;
     margin-bottom: .5em;
 }
 
@@ -67,7 +68,7 @@ button {
 } */
 
 /* like button specifically */
-.secondary.holdsColor{
+#like {
     border: 12px solid rgb(5, 65, 20);
     border-radius: 5ex;
     background-color: rgb(187, 255, 189);
@@ -75,39 +76,107 @@ button {
     margin-top: 10px;
 }
 
-.secondary.holdsColor:hover {
+#like:hover {
     background-color: rgb(5, 65, 20);
     color: rgb(187, 255, 189);
 }
 
-.secondary.holdsColor:focus { /* This kinda doesn't work yet */
+#like:focus { /* This kinda doesn't work yet */
     background-color: rgb(5, 65, 20);
     color: rgb(187, 255, 189);
 }
 
+#mute {
+    border: 12px solid rgb(50, 34, 11);
+    border-radius: 5ex;
+    background-color: rgb(212, 191, 162);
+    color: rgb(50, 34, 11);
+    margin-top: 10px;
+}
+
+/* Checkboxes */
 label {
-    border:1px solid #000000;
+    display:inline-block;
+    position: relative; 
+    padding:10px;
+    cursor: pointer;
+    border:12px solid rgb(8, 72, 90);
+    border-radius: 5ex;
+    background-color: rgb(218, 249, 251);
+    color: rgb(8, 72, 90);
     width: 160px;
     height: 20px;
-    padding:10px;
-    margin:20px 20px;
-    display:inline-block; 
+    margin: 20px;
     font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
 }
 
-label:hover {
-    background:#008CBA;
-    cursor:pointer;
+/* more specific settings for the checkboxes */
+.container{
+    padding-left: 35px;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
 }
 
-/* #like {
-    background:blue;
-} 
-Why isn't this working???*/
+/* hiding the default box */
+.container input{
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+    height: 0;
+    width: 0;
+}
+
+/* initial settings of the box */
+.checkmark{
+    position: absolute;
+    left: 1em;
+    height: 15px;
+    width: 15px;
+    background-color: rgb(218, 249, 251);
+    border: .5ex solid rgb(8, 72, 90);
+    border-radius: .5em;
+}
+
+/* Changing the color of the box when mouse is hovering */
+.container:hover input ~ .checkmark{
+    background-color: rgb(8, 72, 90);
+}
+
+/* Changing the background color of the box when clicked */
+.container input:checked ~ .checkmark{
+    background-color: rgb(8, 72, 90);
+}
+
+/* creating the checkmark */
+.checkmark:after{
+    content:"";
+    position:absolute;
+    display:none;
+}
+
+/* Showing the checkmark */
+.container input:checked ~ .checkmark:after{
+    display:block;
+}
+
+/* The checkmark */
+.container .checkmark:after{
+    left: 4px;
+    top: 1px;
+    width: 5px;
+    height: 10px;
+    border: solid rgb(218, 249, 251);
+    border-width: 0 3px 3px 0;
+    -webkit-transform: rotate(45deg);
+    -ms-transform: rotate(45deg);
+    transform: rotate(45deg);
+}
 
 fieldset {
     border:3px solid #000000;
-    width: 450px;
+    width: 550px;
     padding: 20px;
     margin: auto;
     margin-top: 30px;

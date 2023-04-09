@@ -98,8 +98,12 @@ properBtn.addEventListener("click", () => {
 likeButton.addEventListener("click", () => {
   if (liked == false) {
     liked = true;
+    likeButton.style.backgroundColor = 'rgb(5, 65, 20)';
+    likeButton.style.color = 'rgb(187, 255, 189)';
   } else {
     liked = false;
+    likeButton.style.backgroundColor ='rgb(187, 255, 189)';
+    likeButton.style.color = 'rgb(5, 65, 20)';
   }
 });
 
