@@ -11,9 +11,6 @@ const likeButton = document.getElementById("like");
 const changeButton = document.getElementById("changeIt");
 const muteButton = document.getElementById("mute");
 
-
-
-
 const oneBar = 5647; // length of one bar. TODO: update
 /* Note: The new sounds that I added in are all 5.647 second long. 
 I know this is a really inconvenient number and if the math doesn't work or anything
@@ -51,16 +48,15 @@ const oceanAudio = new Audio('./audio/Nature_Ocean.wav');
 const rainAudio = new Audio('./audio/Nature_Rain.wav');
 const fireplaceAudio = new Audio('./audio/Nature_Fireplace.mp3');
 const cafeAudio = new Audio('./audio/Nature_Cafe.mp3');
+const backgroundAudios = [forestAudio, grasslandsAudio, oceanAudio, rainAudio, fireplaceAudio, cafeAudio];
 
 const forestCheckbox = document.getElementById('forest');
-const oceanCheckbox = document.getElementById('ocean');
 const grasslandsCheckbox = document.getElementById('grasslands');
+const oceanCheckbox = document.getElementById('ocean');
 const rainCheckbox = document.getElementById('rain');
-const cafeCheckbox = document.getElementById('cafe');
 const fireplaceCheckbox = document.getElementById('fireplace');
-
-const checkboxes = [forestCheckbox, oceanCheckbox, grasslandsCheckbox, rainCheckbox, cafeCheckbox, fireplaceCheckbox];
-
+const cafeCheckbox = document.getElementById('cafe');
+const checkboxes = [forestCheckbox, grasslandsCheckbox, oceanCheckbox, rainCheckbox, fireplaceCheckbox, cafeCheckbox];
 
 let changedTrack = null; 
 let liked = false;
@@ -148,7 +144,6 @@ muteButton.addEventListener("click", () =>{
     }
   }
 })
-
 
 function changeTrack() {
   if (liked != true) { 
@@ -239,58 +234,14 @@ function playTrack(audioBuffer, time) {
   return trackSource;
 }
 
-
-// fix repeated code - make into one method
-function playForest() {
-  if (forestCheckbox.checked) {
-    forestAudio.play();
-    forestAudio.loop = true;
-  } else {
-    forestAudio.pause();
-  }
-}
-
-  function playOcean() {
-    if (oceanCheckbox.checked) {
-      oceanAudio.play();
-      oceanAudio.loop = true;
+function playBackgroundNoise() {
+  for (const checkbox of checkboxes) {
+    const index = checkboxes.indexOf(checkbox);
+    if (checkbox.checked) {
+      backgroundAudios[index].play();
+      backgroundAudios[index].loop = true;
     } else {
-      oceanAudio.pause();
+      backgroundAudios[index].pause();
     }
-}
-
-function playGrasslands() {
-  if (grasslandsCheckbox.checked) {
-    grasslandsAudio.play();
-    grasslandsAudio.loop = true;
-  } else {
-    grasslandsAudio.pause();
-  }
-}
-
-function playRain() {
-  if (rainCheckbox.checked) {
-    rainAudio.play();
-    rainAudio.loop = true;
-  } else {
-    rainAudio.pause();
-  }
-}
-
-function playFireplace() {
-  if (fireplaceCheckbox.checked) {
-    fireplaceAudio.play();
-    fireplaceAudio.loop = true;
-  } else {
-    fireplaceAudio.pause();
-  }
-}
-
-function playCafe() {
-  if (cafeCheckbox.checked) {
-    cafeAudio.play();
-    cafeAudio.loop = true;
-  } else {
-    cafeAudio.pause();
   }
 }
