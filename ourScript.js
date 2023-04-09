@@ -9,6 +9,8 @@ const currentlyPlaying = []; //set of VOLUME nodes NOT audio
 const properBtn = document.querySelector(".primary");
 const likeButton = document.getElementById("like");
 const changeButton = document.getElementById("changeIt");
+const muteButton = document.getElementById("mute");
+
 
 
 
@@ -49,6 +51,16 @@ const oceanAudio = new Audio('./audio/Nature_Ocean.wav');
 const rainAudio = new Audio('./audio/Nature_Rain.wav');
 const fireplaceAudio = new Audio('./audio/Nature_Fireplace.mp3');
 const cafeAudio = new Audio('./audio/Nature_Cafe.mp3');
+
+const forestCheckbox = document.getElementById('forest');
+const oceanCheckbox = document.getElementById('ocean');
+const grasslandsCheckbox = document.getElementById('grasslands');
+const rainCheckbox = document.getElementById('rain');
+const cafeCheckbox = document.getElementById('cafe');
+const fireplaceCheckbox = document.getElementById('fireplace');
+
+const checkboxes = [forestCheckbox, oceanCheckbox, grasslandsCheckbox, rainCheckbox, cafeCheckbox, fireplaceCheckbox];
+
 
 let changedTrack = null; 
 let liked = false;
@@ -124,7 +136,18 @@ changeButton.addEventListener("click", () =>{
   }
 });
 
-
+muteButton.addEventListener("click", () =>{
+  if (playing) {
+    audioContext.suspend().then(function () {
+      properBtn.textContent = 'RESUME MUSIC';
+    });
+  }
+  for (const checkbox of checkboxes) {
+    if (checkbox.checked) {
+      checkbox.click();
+    }
+  }
+})
 
 
 function changeTrack() {
@@ -219,8 +242,7 @@ function playTrack(audioBuffer, time) {
 
 // fix repeated code - make into one method
 function playForest() {
-  checkbox = document.getElementById('forest');
-  if (checkbox.checked) {
+  if (forestCheckbox.checked) {
     forestAudio.play();
     forestAudio.loop = true;
   } else {
@@ -229,8 +251,7 @@ function playForest() {
 }
 
   function playOcean() {
-    checkbox = document.getElementById('ocean');
-    if (checkbox.checked) {
+    if (oceanCheckbox.checked) {
       oceanAudio.play();
       oceanAudio.loop = true;
     } else {
@@ -239,8 +260,7 @@ function playForest() {
 }
 
 function playGrasslands() {
-  checkbox = document.getElementById('grasslands');
-  if (checkbox.checked) {
+  if (grasslandsCheckbox.checked) {
     grasslandsAudio.play();
     grasslandsAudio.loop = true;
   } else {
@@ -249,8 +269,7 @@ function playGrasslands() {
 }
 
 function playRain() {
-  checkbox = document.getElementById('rain');
-  if (checkbox.checked) {
+  if (rainCheckbox.checked) {
     rainAudio.play();
     rainAudio.loop = true;
   } else {
@@ -259,8 +278,7 @@ function playRain() {
 }
 
 function playFireplace() {
-  checkbox = document.getElementById('fireplace');
-  if (checkbox.checked) {
+  if (fireplaceCheckbox.checked) {
     fireplaceAudio.play();
     fireplaceAudio.loop = true;
   } else {
@@ -269,8 +287,7 @@ function playFireplace() {
 }
 
 function playCafe() {
-  checkbox = document.getElementById('cafe');
-  if (checkbox.checked) {
+  if (cafeCheckbox.checked) {
     cafeAudio.play();
     cafeAudio.loop = true;
   } else {
