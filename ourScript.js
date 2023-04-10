@@ -120,7 +120,8 @@ likeButton.addEventListener("click", () => {
 changeButton.addEventListener("click", () =>{
   if (playing){
     if (liked == true) {
-      //undo the like button effects
+      likeButton.style.backgroundColor ='rgb(187, 255, 189)';
+      likeButton.style.color = 'rgb(5, 65, 20)';
       liked = false;
     }
     for (i = 0; i < currentlyPlaying.length; i++) {
