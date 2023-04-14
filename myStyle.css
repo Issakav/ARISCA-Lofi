@@ -49,6 +49,7 @@ button {
 /* Like and change it up */
 .secondary{
     font-size:100%;
+    width: 210px;
     border-radius: 3ex;
     border: 12px solid rgb(65, 5, 5);
     background-color: rgb(255, 187, 187);
@@ -70,7 +71,7 @@ button {
 /* like button specifically */
 #like {
     border: 12px solid rgb(5, 65, 20);
-    border-radius: 5ex;
+    border-radius: 3ex;
     background-color: rgb(187, 255, 189);
     color: rgb(5, 65, 20);
     margin-top: 10px;
