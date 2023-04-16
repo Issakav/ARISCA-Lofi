@@ -7,9 +7,10 @@ let tracks; //Drums, Piano, Melody, Guitar
 
 const currentlyPlaying = []; //set of VOLUME nodes NOT audio
 const properBtn = document.querySelector(".primary");
-const likeButton = document.getElementById("like");
+const likeCheckbox = document.getElementById('like');
 const changeButton = document.getElementById("changeIt");
 const muteButton = document.getElementById("mute");
+let backgroundVolume = document.querySelector("#volumeSlider");
 
 
 const drumText = document.getElementById("pDrums");
@@ -72,7 +73,6 @@ const cafeCheckbox = document.getElementById('cafe');
 const checkboxes = [forestCheckbox, grasslandsCheckbox, oceanCheckbox, rainCheckbox, fireplaceCheckbox, cafeCheckbox];
 
 let changedTrack = null; 
-let liked = false;
 
 properBtn.addEventListener("click", () => {
   if (started == false) {
@@ -118,24 +118,10 @@ properBtn.addEventListener("click", () => {
   }
 });
 
-likeButton.addEventListener("click", () => {
-  if (liked == false) {
-    liked = true;
-    likeButton.style.backgroundColor = 'rgb(5, 65, 20)';
-    likeButton.style.color = 'rgb(187, 255, 189)';
-  } else {
-    liked = false;
-    likeButton.style.backgroundColor ='rgb(187, 255, 189)';
-    likeButton.style.color = 'rgb(5, 65, 20)';
-  }
-});
-
 changeButton.addEventListener("click", () =>{
   if (playing){
-    if (liked == true) {
-      likeButton.style.backgroundColor ='rgb(187, 255, 189)';
-      likeButton.style.color = 'rgb(5, 65, 20)';
-      liked = false;
+    if (likeCheckbox.checked) {
+      likeCheckbox.click();
     }
     for (i = 0; i < currentlyPlaying.length; i++) {
       currentlyPlaying[i].gain.value = 0;
@@ -169,7 +155,7 @@ muteButton.addEventListener("click", () =>{
 function changeTrack() {
   if (playing){
     
-    if (liked != true) { 
+    if (!likeCheckbox.checked) { 
       const typeToChange = getRndInteger(1, 6);
       console.log(typeToChange);
       if (typeToChange == 5) { //sets one track at random to silent for 1 bar to create a sort of beat droppy effect
@@ -293,4 +279,11 @@ function playBackgroundNoise() {
       backgroundAudios[index].pause();
     }
   }
+
+  // possible change the range of values for the volume - currently 0-100
+  backgroundVolume.addEventListener("input", function(e) {
+    for (const audio of backgroundAudios) {
+      audio.volume = e.currentTarget.value / 100;
+    }
+  })
 }
