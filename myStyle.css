@@ -18,6 +18,14 @@ button.primary      <-- <button> element with class="primary"
 .nature-sounds .choice <-- matching custom class attribute, using nesting
 
 */
+.row{
+    /* display: table;
+    width: 100%;
+    padding: 0;
+    border-spacing: 10px 3px;
+    border-collapse: separate; */
+    text-align: center;
+}
 
 .column{
     float:left;
@@ -28,6 +36,16 @@ button.primary      <-- <button> element with class="primary"
 .column.small{
     width: 20%;
 }
+
+.column.right{
+    float: right;
+}
+
+/* .row::after{
+    content:"";
+    display: flex;
+    clear: both;
+} */
 
 button {
     padding: 15px 32px;
