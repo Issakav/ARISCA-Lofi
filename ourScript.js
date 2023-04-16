@@ -10,7 +10,8 @@ const properBtn = document.querySelector(".primary");
 const likeCheckbox = document.getElementById('like');
 const changeButton = document.getElementById("changeIt");
 const muteButton = document.getElementById("mute");
-let backgroundVolume = document.querySelector("#volumeSlider");
+let backgroundVolume = document.querySelector("#volumeSlider"); // change id in HTML to backgroundVolume 
+let musicVolume = document.querySelector("#musicVolume");
 
 
 const drumText = document.getElementById("pDrums");
@@ -117,6 +118,13 @@ properBtn.addEventListener("click", () => {
     }
   }
 });
+
+// we can change the range of values for the volume (currently 0-100) if the changes aren't noticable enough
+musicVolume.addEventListener("input", function(slider) {
+  for (const track of currentlyPlaying) {
+    track.gain.value = slider.currentTarget.value / 100;
+  }
+})
 
 changeButton.addEventListener("click", () =>{
   if (playing){
@@ -280,10 +288,9 @@ function playBackgroundNoise() {
     }
   }
 
-  // possible change the range of values for the volume - currently 0-100
-  backgroundVolume.addEventListener("input", function(e) {
+  backgroundVolume.addEventListener("input", function(slider) {
     for (const audio of backgroundAudios) {
-      audio.volume = e.currentTarget.value / 100;
+      audio.volume = slider.currentTarget.value / 100;
     }
   })
 }
