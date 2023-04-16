@@ -10,10 +10,22 @@
 </head>
 <body>
     <div class="buttonClass">
-        <button class="primary">PLAY MUSIC</button>
-        <button id="changeIt" class="secondary">CHANGE IT UP</button>
+        <div class = "column small">
+            <button id="mute" class = "secondary holdsColor">MUTE ALL</button>
+            <p id="pDrums">Drums 1</p>
+            <p id="pGuitar">Guitar 1</p>
+            <p id="pMelody">Melody 1</p>
+            <p id="pPiano">Piano 1</p>
+        </div>
+        <div class = "column">
+            <button class="primary">PLAY MUSIC</button>
+            <input type =“range” id=“musicVolume”>
+        </div>
+        <div class = "column">
+            <button id="changeIt" class="secondary">CHANGE IT UP</button>
+            <label class="container like"><input type="checkbox" id="like"/><span class = "checkmark"></span> KEEP ME HERE </label>
+        </div>
         <!-- <button id="like" class="secondary holdsColor">KEEP ME HERE</button> -->
-        <label><input type="checkbox" id="like"/> KEEP ME HERE </label>
         <fieldset>
             <legend>Choose a background noise:</legend>
             <label class="container"><input type="checkbox" id="forest" onchange="playBackgroundNoise()"/><span class="checkmark"></span> Forest Sounds </label>
@@ -25,11 +37,7 @@
             <input type="range" id="volumeSlider">
         </fieldset>
 
-        <button id="mute" class = "secondary holdsColor">MUTE ALL</button>
-        <p id="pDrums">Drums 1</p>
-        <p id="pGuitar">Guitar 1</p>
-        <p id="pMelody">Melody 1</p>
-        <p id="pPiano">Piano 1</p>
+        
         <!-- Playing around with adding a thumbs up button instead of like
         <button type="primary">
             <img src="https://creazilla-store.fra1.digitaloceanspaces.com/icons/3254788/thumbs-up-icon-md.png" alt="buttonpng" border="0" />
