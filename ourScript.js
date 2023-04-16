@@ -11,6 +11,19 @@ const likeButton = document.getElementById("like");
 const changeButton = document.getElementById("changeIt");
 const muteButton = document.getElementById("mute");
 
+
+const drumText = document.getElementById("pDrums");
+const guitarText = document.getElementById("pGuitar");
+const melodyText = document.getElementById("pMelody");
+const pianoText = document.getElementById("pPiano");
+
+drumText.innerHTML = "Drums 1";
+guitarText.innerHTML = "Guitar 1";
+melodyText.innerHTML = "Melody 1";
+pianoText.innerHTML = "Piano 1";
+
+
+
 const oneBar = 5647; // length of one bar. TODO: update
 /* Note: The new sounds that I added in are all 5.647 second long. 
 I know this is a really inconvenient number and if the math doesn't work or anything
@@ -126,7 +139,14 @@ changeButton.addEventListener("click", () =>{
     }
     for (i = 0; i < currentlyPlaying.length; i++) {
       currentlyPlaying[i].gain.value = 0;
-      const newTrack = gainNodes[getRndInteger((i) * 5, ((i+1) * 5) -1)];
+      let oldTrack = currentlyPlaying[i];
+      let newTrack;
+      while (true){
+        newTrack = gainNodes[getRndInteger((i) * 5, ((i+1) * 5) -1)];
+        if (newTrack != oldTrack){
+          break;
+        }
+      }      
       newTrack.gain.value = 1;
       currentlyPlaying[i] = newTrack;
     }
@@ -147,54 +167,82 @@ muteButton.addEventListener("click", () =>{
 })
 
 function changeTrack() {
-  if (liked != true) { 
-    const typeToChange = getRndInteger(1, 6);
-    console.log(typeToChange);
-    if (typeToChange == 5) { //sets one track at random to silent for 1 bar to create a sort of beat droppy effect
-      const typeToMute = getRndInteger(1, 5);
-      const trackToChange = currentlyPlaying[typeToMute - 1];
-      trackToChange.gain.value = 0;
-      setTimeout(() => {
-        trackToChange.gain.value = 1;
-      }, oneBar);
-    } else { //swaps one track for another of the same type. sometimes changes it for itself causing no change so that the changes don't feel as consistent.
-      const trackToChange = currentlyPlaying[typeToChange - 1]; //trackToChange is actually a gain node, not a track
-      trackToChange.gain.value = 0;
-      const newTrack = gainNodes[getRndInteger((typeToChange-1) * 5, (typeToChange * 5) -1)];//[getRndInteger((typeToChange - 1) * 5, (typeToChange * 5) - 1)];
-      newTrack.gain.value = 1;
-      currentlyPlaying[typeToChange - 1] = newTrack;
-    }
-  } 
-  else {
-    if (changedTrack != null) {
-      changedTrack.gain.value = 0;
+  if (playing){
+    
+    if (liked != true) { 
+      const typeToChange = getRndInteger(1, 6);
+      console.log(typeToChange);
+      if (typeToChange == 5) { //sets one track at random to silent for 1 bar to create a sort of beat droppy effect
+        const typeToMute = getRndInteger(1, 5);
+        const trackToChange = currentlyPlaying[typeToMute - 1];
+        trackToChange.gain.value = 0;
+        setTimeout(() => {
+          trackToChange.gain.value = 1;
+        }, oneBar);
+      } else { //swaps one track for another of the same type. sometimes changes it for itself causing no change so that the changes don't feel as consistent.
+        const trackToChange = currentlyPlaying[typeToChange - 1]; //trackToChange is actually a gain node, not a track
+        trackToChange.gain.value = 0;
+        const newTrackNumber = getRndInteger((typeToChange-1) * 5, (typeToChange * 5) -1)
+        const newTrack = gainNodes[newTrackNumber];//[getRndInteger((typeToChange - 1) * 5, (typeToChange * 5) - 1)];
+        newTrack.gain.value = 1;
+        currentlyPlaying[typeToChange - 1] = newTrack;
+        updateTrackDisplay(typeToChange, newTrackNumber);
+
+
+      }
     } 
-    let setTracks = [];
-    for (i = 0; i < currentlyPlaying.length; i++) {
-      setTracks[i] = currentlyPlaying[i];
-    }
-    for (const track of setTracks) {
-      track.gain.value = 1;
-    }
-    const typeToChange = getRndInteger(1, 6);
-    console.log(typeToChange);
-    if (typeToChange == 5) { //sets one track at random to silent for 1 bar to create a sort of beat droppy effect
-      const typeToMute = getRndInteger(1, 5); // ?
-      const trackToChange = setTracks[typeToMute - 1];
-      trackToChange.gain.value = 0;
-      setTimeout(() => {
-        trackToChange.gain.value = 1;
-      }, oneBar);
-    } else { //swaps one track for another of the same type. sometimes changes it for itself causing no change so that the changes don't feel as consistent.
-      const trackToChange = setTracks[typeToChange - 1]; //trackToChange is actually a gain node, not a track
-      trackToChange.gain.value = 0;
-      const newTrack = gainNodes[getRndInteger((typeToChange-1) * 5, (typeToChange * 5) -1)]; //[getRndInteger((typeToChange - 1) * 5, (typeToChange * 5) - 1)];
-      newTrack.gain.value = 1;
-      setTracks[typeToChange - 1].gain.value = 0;
-      changedTrack = newTrack;
+    else {
+      if (changedTrack != null) {
+        changedTrack.gain.value = 0;
+      } 
+      let setTracks = [];
+      for (i = 0; i < currentlyPlaying.length; i++) {
+        setTracks[i] = currentlyPlaying[i];
+      }
+      for (const track of setTracks) {
+        track.gain.value = 1;
+      }
+      const typeToChange = getRndInteger(1, 6);
+      console.log(typeToChange);
+      if (typeToChange == 5) { //sets one track at random to silent for 1 bar to create a sort of beat droppy effect
+        const typeToMute = getRndInteger(1, 5); // ?
+        const trackToChange = setTracks[typeToMute - 1];
+        trackToChange.gain.value = 0;
+        setTimeout(() => {
+          trackToChange.gain.value = 1;
+        }, oneBar);
+      } else { //swaps one track for another of the same type. sometimes changes it for itself causing no change so that the changes don't feel as consistent.
+        const trackToChange = setTracks[typeToChange - 1]; //trackToChange is actually a gain node, not a track
+        trackToChange.gain.value = 0;
+        const newTrackNumber = getRndInteger((typeToChange-1) * 5, (typeToChange * 5) -1);
+        const newTrack = gainNodes[newTrackNumber];
+        newTrack.gain.value = 1;
+        setTracks[typeToChange - 1].gain.value = 0;
+        changedTrack = newTrack;
+        updateTrackDisplay(typeToChange, newTrackNumber);
+
+
+      }
     }
   }
+  
 }
+
+function updateTrackDisplay(typeToChange, newTrackNumber){
+  if (typeToChange == 1){
+    document.getElementById("pDrums").innerHTML = "Drums "  + (newTrackNumber + 1);
+  }
+  else if (typeToChange == 2){
+    document.getElementById("pGuitar").innerHTML = "Guitar " + (newTrackNumber - 4);
+  }
+  else if (typeToChange == 3){
+    document.getElementById("pMelody").innerHTML = "Melody " + (newTrackNumber - 9);
+  }
+  else if (typeToChange == 4){
+    document.getElementById("pPiano").innerHTML = "Piano " + (newTrackNumber - 14);
+  }
+}
+
 
 //min is inclusive, max is not. 
 function getRndInteger(min, max) {
