@@ -12,7 +12,8 @@
     <div class="buttonClass">
         <button class="primary">PLAY MUSIC</button>
         <button id="changeIt" class="secondary">CHANGE IT UP</button>
-        <button id="like" class="secondary holdsColor">KEEP ME HERE</button>
+        <!-- <button id="like" class="secondary holdsColor">KEEP ME HERE</button> -->
+        <label><input type="checkbox" id="like"/> KEEP ME HERE </label>
         <fieldset>
             <legend>Choose a background noise:</legend>
             <label class="container"><input type="checkbox" id="forest" onchange="playBackgroundNoise()"/><span class="checkmark"></span> Forest Sounds </label>
@@ -21,6 +22,7 @@
             <label class="container"><input type="checkbox" id="rain" onchange="playBackgroundNoise()"/><span class="checkmark"></span> Rain Sounds </label>
             <label class="container"><input type="checkbox" id="fireplace" onchange="playBackgroundNoise()"/><span class="checkmark"></span> Fireplace Sounds </label>
             <label class="container"><input type="checkbox" id="cafe" onchange="playBackgroundNoise()"/><span class="checkmark"></span> Café Sounds </label>
+            <input type="range" id="volumeSlider">
         </fieldset>
 
         <button id="mute" class = "secondary holdsColor">MUTE ALL</button>
@@ -34,7 +36,6 @@
         </button> -->    
     </div>
     
-    <!-- <input type="range" id="volumeSlider"> -->
     <script src = "./ourScript.js"></script>
 </body>
 </html>
