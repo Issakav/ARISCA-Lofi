@@ -149,6 +149,7 @@ changeButton.addEventListener("click", () =>{
 
 muteButton.addEventListener("click", () =>{
   if (playing) {
+    playing = false;
     audioContext.suspend().then(function () {
       properBtn.textContent = 'RESUME MUSIC';
     });
