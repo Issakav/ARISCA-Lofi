@@ -70,8 +70,7 @@ button {
 }
 
 .primary:hover {
-    background-color: rgb(5, 22, 56);
-    color: rgb(187, 219, 255);
+    background-color: rgb(132, 171, 215);
 }
 
 /* Like and change it up */
@@ -87,8 +86,7 @@ button {
 }
 
 .secondary:hover{
-    background-color: rgb(65, 5, 5);
-    color: rgb(255, 187, 187);
+    background-color: rgb(209, 130, 130);
 }
 
 #mute {
@@ -100,8 +98,7 @@ button {
 }
 
 #mute:hover{
-    background-color: rgb(50, 34, 11);
-    color: rgb(212, 191, 162);
+    background-color: rgb(164, 141, 108);
 }
 
 /* Checkboxes */
@@ -151,7 +148,7 @@ label {
 
 /* Changing the color of the box when mouse is hovering */
 .container:hover input ~ .checkmark{
-    background-color: rgb(8, 72, 90);
+    background-color: rgb(58, 120, 124);
 }
 
 /* Changing the background color of the box when clicked */
@@ -204,7 +201,7 @@ label {
 
 /* Changing the color of the box when mouse is hovering */
 .container.like:hover input ~ .checkmark{
-    background-color: rgb(5, 65, 20);
+    background-color: rgb(54, 120, 55);
 }
 
 /* Changing the background color of the box when clicked */
