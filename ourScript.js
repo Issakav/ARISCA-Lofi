@@ -135,17 +135,14 @@ changeButton.addEventListener("click", () =>{
       currentlyPlaying[i].gain.value = 0;
       let oldTrack = currentlyPlaying[i];
       let newTrack;
-      let newTrackNumber
       while (true){
-        newTrackNumber  = getRndInteger((i) * 5, ((i+1) * 5) -1);
-        newTrack = gainNodes[newTrackNumber];
+        newTrack = gainNodes[getRndInteger((i) * 5, ((i+1) * 5) -1)];
         if (newTrack != oldTrack){
           break;
         }
-      }       
-      newTrack.gain.value = 1;
+      }      
+      newTrack.gain.value = musicVolume.value / 100;
       currentlyPlaying[i] = newTrack;
-      updateTrackDisplay(i+1, newTrackNumber);
     }
   }
 });
@@ -174,14 +171,14 @@ function changeTrack() {
         const trackToChange = currentlyPlaying[typeToMute - 1];
         trackToChange.gain.value = 0;
         setTimeout(() => {
-          trackToChange.gain.value = 1;
+          trackToChange.gain.value = musicVolume.value / 100;
         }, oneBar);
       } else { //swaps one track for another of the same type. sometimes changes it for itself causing no change so that the changes don't feel as consistent.
         const trackToChange = currentlyPlaying[typeToChange - 1]; //trackToChange is actually a gain node, not a track
         trackToChange.gain.value = 0;
         const newTrackNumber = getRndInteger((typeToChange-1) * 5, (typeToChange * 5) -1)
         const newTrack = gainNodes[newTrackNumber];//[getRndInteger((typeToChange - 1) * 5, (typeToChange * 5) - 1)];
-        newTrack.gain.value = 1;
+        newTrack.gain.value = musicVolume.value / 100;
         currentlyPlaying[typeToChange - 1] = newTrack;
         updateTrackDisplay(typeToChange, newTrackNumber);
 
@@ -197,7 +194,7 @@ function changeTrack() {
         setTracks[i] = currentlyPlaying[i];
       }
       for (const track of setTracks) {
-        track.gain.value = 1;
+        track.gain.value = musicVolume.value / 100;
       }
       const typeToChange = getRndInteger(1, 6);
       console.log(typeToChange);
@@ -206,14 +203,14 @@ function changeTrack() {
         const trackToChange = setTracks[typeToMute - 1];
         trackToChange.gain.value = 0;
         setTimeout(() => {
-          trackToChange.gain.value = 1;
+          trackToChange.gain.value = musicVolume.value / 100;
         }, oneBar);
       } else { //swaps one track for another of the same type. sometimes changes it for itself causing no change so that the changes don't feel as consistent.
         const trackToChange = setTracks[typeToChange - 1]; //trackToChange is actually a gain node, not a track
         trackToChange.gain.value = 0;
         const newTrackNumber = getRndInteger((typeToChange-1) * 5, (typeToChange * 5) -1);
         const newTrack = gainNodes[newTrackNumber];
-        newTrack.gain.value = 1;
+        newTrack.gain.value = musicVolume.value / 100;
         setTracks[typeToChange - 1].gain.value = 0;
         changedTrack = newTrack;
         updateTrackDisplay(typeToChange, newTrackNumber);
