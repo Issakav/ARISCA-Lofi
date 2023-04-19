@@ -135,12 +135,15 @@ changeButton.addEventListener("click", () =>{
       currentlyPlaying[i].gain.value = 0;
       let oldTrack = currentlyPlaying[i];
       let newTrack;
+      let newTrackNumber
       while (true){
-        newTrack = gainNodes[getRndInteger((i) * 5, ((i+1) * 5) -1)];
+        newTrackNumber = getRndInteger((i) * 5, ((i+1) * 5) -1);
+        newTrack = gainNodes[newTrackNumber];
         if (newTrack != oldTrack){
           break;
         }
-      }      
+      }
+      updateTrackDisplay(i+1, newTrackNumber);
       newTrack.gain.value = musicVolume.value / 100;
       currentlyPlaying[i] = newTrack;
     }
