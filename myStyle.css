@@ -2,10 +2,6 @@ body {
     background-color: rgb(194, 182, 165);
 }
 
-/* .controls {
-    text-align: center;
-} */
-
 /* CSS selector */
 
 /*
@@ -18,13 +14,11 @@ button.primary      <-- <button> element with class="primary"
 .nature-sounds .choice <-- matching custom class attribute, using nesting
 
 */
-.row{
-    /* display: table;
-    width: 100%;
-    padding: 0;
-    border-spacing: 10px 3px;
-    border-collapse: separate; */
+.main{
     text-align: center;
+    display: flex;  
+    flex-direction: column;
+    justify-content: flex-end; /* change this */
 }
 
 .column{
@@ -40,12 +34,6 @@ button.primary      <-- <button> element with class="primary"
 .column.right{
     float: right;
 }
-
-/* .row::after{
-    content:"";
-    display: flex;
-    clear: both;
-} */
 
 button {
     padding: 15px 32px;
@@ -237,6 +225,10 @@ fieldset {
     font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
     text-align: center;
     border-radius: 3em;
+}
+
+#musicBox{
+    width: 800px;
 }
 
 input[type="range"] {
