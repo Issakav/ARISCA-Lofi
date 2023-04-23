@@ -16,7 +16,7 @@
         </div>
         <div class = "column">
             <button class="primary">PLAY MUSIC</button>
-            <input class="range music" type ="range" id="musicVolume">
+            <input class="range" type ="range" id="musicVolume" min="0" max="100" value="50">
 
         </div>
         <div class = "column right">
@@ -33,7 +33,7 @@
             <label class="container"><img src="images/fireplace.png"/><input type="checkbox" id="fireplace" onchange="playBackgroundNoise()"/><span class="checkmark"></span></label>
             <label class="container"><img src="images/cafe.png"/><input type="checkbox" id="cafe" onchange="playBackgroundNoise()"/><span class="checkmark"></span></label>
             
-            <input class="range background" type="range" id="volumeSlider">
+            <input class="range background" type="range" id="backgroundVolume" min="0" max="100" value="50">
         
         </fieldset>
         <!-- <button id="like" class="secondary holdsColor">KEEP ME HERE</button> -->

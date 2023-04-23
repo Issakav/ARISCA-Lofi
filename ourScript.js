@@ -10,7 +10,7 @@ const properBtn = document.querySelector(".primary");
 const likeCheckbox = document.getElementById('like');
 const changeButton = document.getElementById("changeIt");
 const muteButton = document.getElementById("mute");
-let backgroundVolume = document.querySelector("#volumeSlider"); // change id in HTML to backgroundVolume 
+let backgroundVolume = document.querySelector("#backgroundVolume"); 
 let musicVolume = document.querySelector("#musicVolume");
 
 
@@ -124,6 +124,8 @@ musicVolume.addEventListener("input", function(slider) {
   for (const track of currentlyPlaying) {
     track.gain.value = slider.currentTarget.value / 100;
   }
+  var value = (this.value-this.min)/(this.max-this.min)*100
+  this.style.background = 'linear-gradient(to right, rgb(5, 22, 56) 0%, rgb(5, 22, 56) ' + value + '%, rgb(187, 219, 255) ' + value + '%, rgb(187, 219, 255) 100%)'
 })
 
 changeButton.addEventListener("click", () =>{
@@ -296,5 +298,7 @@ function playBackgroundNoise() {
     for (const audio of backgroundAudios) {
       audio.volume = slider.currentTarget.value / 100;
     }
+    var value = (this.value-this.min)/(this.max-this.min)*100
+    this.style.background = 'linear-gradient(to right, rgb(8, 72, 90) 0%, rgb(8, 72, 90) ' + value + '%, rgb(218, 249, 251) ' + value + '%, rgb(218, 249, 251) 100%)'
   })
 }
