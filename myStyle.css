@@ -205,6 +205,7 @@ label img {
 
 /* initial settings of the box */
 .container.like input ~ .checkmark{
+    top: 14px;
     background-color: rgb(187, 255, 189);
     border: .5ex solid rgb(5, 65, 20);
 }
