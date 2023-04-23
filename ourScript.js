@@ -19,10 +19,10 @@ const guitarText = document.getElementById("pGuitar");
 const melodyText = document.getElementById("pMelody");
 const pianoText = document.getElementById("pPiano");
 
-drumText.innerHTML = "Drums 1";
-guitarText.innerHTML = "Guitar 1";
-melodyText.innerHTML = "Melody 1";
-pianoText.innerHTML = "Piano 1";
+drumText.innerHTML = "1";
+guitarText.innerHTML = "1";
+melodyText.innerHTML = "1";
+pianoText.innerHTML = "1";
 
 
 
@@ -230,16 +230,16 @@ function changeTrack() {
 
 function updateTrackDisplay(typeToChange, newTrackNumber){
   if (typeToChange == 1){
-    document.getElementById("pDrums").innerHTML = "Drums "  + (newTrackNumber + 1);
+    document.getElementById("pDrums").innerHTML = (newTrackNumber + 1);
   }
   else if (typeToChange == 2){
-    document.getElementById("pGuitar").innerHTML = "Guitar " + (newTrackNumber - 4);
+    document.getElementById("pGuitar").innerHTML = (newTrackNumber - 4);
   }
   else if (typeToChange == 3){
-    document.getElementById("pMelody").innerHTML = "Melody " + (newTrackNumber - 9);
+    document.getElementById("pMelody").innerHTML = (newTrackNumber - 9);
   }
   else if (typeToChange == 4){
-    document.getElementById("pPiano").innerHTML = "Piano " + (newTrackNumber - 14);
+    document.getElementById("pPiano").innerHTML = (newTrackNumber - 14);
   }
 }
 
