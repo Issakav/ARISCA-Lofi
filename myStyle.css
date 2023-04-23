@@ -113,6 +113,13 @@ label {
     font-family: Georgia, 'Times New Roman', Times, serif;
 }
 
+label img {
+    height: 40px;
+    width: 40px;
+    object-position: center;
+    padding: 5px;
+}
+
 /* more specific settings for the checkboxes */
 .container{
     padding-left: 35px;
@@ -120,6 +127,8 @@ label {
     -moz-user-select: none;
     -ms-user-select: none;
     user-select: none;
+    width: fit-content;
+    height: fit-content;
     border:12px solid rgb(8, 72, 90);
     border-radius: 5ex;
     background-color: rgb(218, 249, 251);
@@ -138,7 +147,8 @@ label {
 /* initial settings of the box */
 .checkmark{
     position: absolute;
-    left: 1em;
+    top: 25px;
+    left: 10px;
     height: 15px;
     width: 15px;
     background-color: rgb(218, 249, 251);
