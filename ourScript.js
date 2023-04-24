@@ -124,7 +124,7 @@ musicVolume.addEventListener("input", function(slider) {
   for (const track of currentlyPlaying) {
     track.gain.value = slider.currentTarget.value / 100;
   }
-  var value = (this.value-this.min)/(this.max-this.min)*100
+  let value = (this.value-this.min)/(this.max-this.min)*100
   this.style.background = 'linear-gradient(to right, rgb(5, 22, 56) 0%, rgb(5, 22, 56) ' + value + '%, rgb(187, 219, 255) ' + value + '%, rgb(187, 219, 255) 100%)'
 })
 
@@ -293,12 +293,13 @@ function playBackgroundNoise() {
       backgroundAudios[index].pause();
     }
   }
-
-  backgroundVolume.addEventListener("input", function(slider) {
-    for (const audio of backgroundAudios) {
-      audio.volume = slider.currentTarget.value / 100;
-    }
-    var value = (this.value-this.min)/(this.max-this.min)*100
-    this.style.background = 'linear-gradient(to right, rgb(8, 72, 90) 0%, rgb(8, 72, 90) ' + value + '%, rgb(218, 249, 251) ' + value + '%, rgb(218, 249, 251) 100%)'
-  })
 }
+
+backgroundVolume.addEventListener("input", function(slider) {
+  for (const audio of backgroundAudios) {
+    audio.volume = slider.currentTarget.value / 100;
+  }
+  let value = (this.value-this.min)/(this.max-this.min)*100
+  this.style.background = 'linear-gradient(to right, rgb(8, 72, 90) 0%, rgb(8, 72, 90) ' + value + '%, rgb(218, 249, 251) ' + value + '%, rgb(218, 249, 251) 100%)';
+})
+
