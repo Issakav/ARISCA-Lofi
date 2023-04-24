@@ -75,6 +75,10 @@ const checkboxes = [forestCheckbox, grasslandsCheckbox, oceanCheckbox, rainCheck
 
 let changedTrack = null; 
 
+let lastTrackNumber = null;
+let lastTypeToChange = null;
+
+
 properBtn.addEventListener("click", () => {
   if (started == false) {
     playing = true;
@@ -219,7 +223,34 @@ function changeTrack() {
         newTrack.gain.value = musicVolume.value / 100;
         setTracks[typeToChange - 1].gain.value = 0;
         changedTrack = newTrack;
+
+        // if(lastTrackNumber != null) {
+        //   updateTrackDisplay(lastTypeToChange, lastTrackNumber);
+        // }
+        // if(typeToChange == 1){
+        //   lastTrackNumber = parseInt(document.getElementById("pDrums").innerHTML);
+        // }else if (typeToChange == 2){
+        //   lastTrackNumber = parseInt(document.getElementById("pGuitar").innerHTML);
+        // }else if (typeToChange == 3){
+        //   lastTrackNumber = parseInt(document.getElementById("pMelody").innerHTML);
+        // }else if (typeToChange == 4){
+        //   lastTrackNumber = parseInt(document.getElementById("pPiano").innerHTML);
+        // } 
+        
+        // lastTypeToChange = typeToChange;
+
+
+
+
         updateTrackDisplay(typeToChange, newTrackNumber);
+        
+
+
+
+        
+        
+
+        
 
 
       }
