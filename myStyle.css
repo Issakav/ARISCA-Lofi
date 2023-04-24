@@ -292,3 +292,8 @@ input[type="range"].background {
     padding-bottom: 20px;
     width: 200px; 
 }
+
+.trackIcon img {
+    width: 100px;
+    height: 100px;
+}
