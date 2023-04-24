@@ -2,10 +2,6 @@ body {
     background-color: rgb(194, 182, 165);
 }
 
-/* .controls {
-    text-align: center;
-} */
-
 /* CSS selector */
 
 /*
@@ -18,35 +14,57 @@ button.primary      <-- <button> element with class="primary"
 .nature-sounds .choice <-- matching custom class attribute, using nesting
 
 */
-.row{
-    /* display: table;
-    width: 100%;
-    padding: 0;
-    border-spacing: 10px 3px;
-    border-collapse: separate; */
-    text-align: center;
+
+/* REMOVE BORDERS EVENTUALLY
+        USE JUST FOR VISUALIZAITON */
+div{
+    border: solid #f20303;
 }
 
-.column{
-    float:left;
-    padding: 10px;
-    width: 33.33%;
+/* Settings for all of the divs */
+.main{
+    border: solid lightgreen;
+    display: flex;  
+    flex-flow: row wrap;
+    justify-content: flex-end;
 }
 
-.column.small{
-    width: 20%;
-}
-
-.column.right{
-    float: right;
-}
-
-/* .row::after{
-    content:"";
+.music{
+    border: solid blue;
     display: flex;
-    clear: both;
-} */
+    flex-flow: row wrap;
+    justify-content: space-around;
+    width: 65%;
+}
 
+.buttons{
+    border: solid greenyellow;
+    display: flex;
+    flex-flow: row wrap;
+    text-align: center;
+    justify-content: flex-start;
+}
+
+.currentTracks{
+    border: solid orange;
+    display: flex;
+    flex-flow: row wrap;
+    width: 80%;
+    text-align: center;
+    justify-content: center;
+}
+
+.noise{
+    border: solid green; 
+    display: flex;
+    flex-wrap: row wrap;
+    text-align: center;
+    justify-content: space-between;
+    width: 40%;
+}
+
+
+/* Settings for the buttons */
 button {
     padding: 15px 32px;
     text-decoration: none;
@@ -63,10 +81,10 @@ button {
     background-color: rgb(187, 219, 255);
     color: rgb(5, 22, 56);
     border-radius: 1ex;
-    display:grid;
     margin: auto;
-    margin-top: 1em;
-    margin-bottom: .5em;
+    height:190px;
+    width: 400px;
+    margin-top: 0px;
 }
 
 .primary:hover {
@@ -75,12 +93,13 @@ button {
 
 /* Like and change it up */
 .secondary{
-    font-size:100%;
-    width: 210px;
+    /* font-size:100%; */
+    width: 300px;
     border-radius: 3ex;
     border: 12px solid rgb(65, 5, 5);
     background-color: rgb(255, 187, 187);
     color: rgb(65, 5, 5);
+    font-size: 150%;
     display: block;
     margin: auto;
 }
@@ -95,6 +114,8 @@ button {
     background-color: rgb(212, 191, 162);
     color: rgb(50, 34, 11);
     margin-top: 10px;
+    font-size: 200%;
+    justify-content: flex-end;
 }
 
 #mute:hover{
@@ -194,18 +215,19 @@ label img {
 /* Settings for just the like checkbox */
 /* more specific settings for the checkboxes */
 .container.like{
-    width: 150px;
+    width: 240px;
     border-radius: 3ex;
     padding: 15px 32px;
     padding-right: 7px;
     border:12px solid rgb(5, 65, 20);
     background-color: rgb(187, 255, 189);
     color: rgb(5, 65, 20);
+    font-size: 150%;
 }
 
 /* initial settings of the box */
 .container.like input ~ .checkmark{
-    top: 14px;
+    top: 16px;
     background-color: rgb(187, 255, 189);
     border: .5ex solid rgb(5, 65, 20);
 }
@@ -228,17 +250,23 @@ label img {
     transform: rotate(45deg);
 }
 
+/* The box outline around music and noises */
 fieldset {
     border:3px solid #000000;
-    width: 550px;
-    padding: 20px;
+    width: 350px;
+    padding: 10px;
     margin: auto;
     margin-top: 30px;
-    font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
     text-align: center;
     border-radius: 3em;
 }
 
+/* specifically for the music box */
+#musicBox{
+    width: 800px;
+}
+
+/* The volume sliders */
 input[type="range"] {
     appearance: none;
     background: linear-gradient(to right, rgb(5, 22, 56) 0%, rgb(5, 22, 56) 50%, rgb(187, 219, 255) 50%, rgb(187, 219, 255) 100%);
@@ -250,8 +278,26 @@ input[type="range"] {
     outline: none;
 }
 
+/* Specifically for the background noise */
 input[type="range"].background {
     background: linear-gradient(to right, rgb(8, 72, 90) 0%, rgb(8, 72, 90) 50%, rgb(218, 249, 251) 50%, rgb(218, 249, 251) 100%);
     accent-color: rgb(8, 72, 90);
     border: solid 2px rgb(8, 72, 90);
 } 
+
+/* The currently playing tracks */
+.trackIcon{
+    display:flex;
+    cursor: default;
+    width: 100px;
+    height: 100px;
+    margin: auto;
+    padding: 20px; 
+    font-size: 300%;  
+    text-align: center;
+}
+
+.trackIcon img {
+    width: 100px;
+    height: 100px;
+}
