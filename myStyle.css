@@ -17,28 +17,29 @@ button.primary      <-- <button> element with class="primary"
 
 /* REMOVE BORDERS EVENTUALLY
         USE JUST FOR VISUALIZAITON */
-div{
-    border: solid #f20303;
-}
+/* div{
+    outline: solid #f20303;
+} */
 
 /* Settings for all of the divs */
 .main{
-    border: solid lightgreen;
+    /* outline: solid lightgreen; */
     display: flex;  
     flex-flow: row wrap;
     justify-content: flex-end;
+    height:690px
 }
 
 .music{
-    border: solid blue;
+    /* outline: solid blue; */
     display: flex;
     flex-flow: row wrap;
     justify-content: space-around;
-    width: 65%;
+    width: 67%;
 }
 
 .buttons{
-    border: solid greenyellow;
+    /* outline: solid greenyellow; */
     display: flex;
     flex-flow: row wrap;
     text-align: center;
@@ -46,7 +47,7 @@ div{
 }
 
 .currentTracks{
-    border: solid orange;
+    /* outline: solid orange; */
     display: flex;
     flex-flow: row wrap;
     width: 100%;
@@ -55,12 +56,14 @@ div{
 }
 
 .noise{
-    border: solid green; 
+    /* border: solid green;  */
     display: flex;
     flex-wrap: row wrap;
     text-align: center;
     justify-content: space-between;
-    width: 40%;
+    width: 37%;
+    position: relative;
+    top: -270px;
 }
 
 
@@ -84,7 +87,8 @@ button {
     margin: auto;
     height:190px;
     width: 400px;
-    margin-top: 0px;
+    margin-top: 20px;
+    margin-bottom: 20px;
 }
 
 .primary:hover {
@@ -102,6 +106,7 @@ button {
     font-size: 150%;
     display: block;
     margin: auto;
+    margin-top: 20px;
 }
 
 .secondary:hover{
@@ -116,6 +121,7 @@ button {
     margin-top: 10px;
     font-size: 200%;
     justify-content: flex-end;
+    margin-top: 150px;
 }
 
 #mute:hover{
@@ -252,13 +258,20 @@ label img {
 
 /* The box outline around music and noises */
 fieldset {
-    border:3px solid #000000;
+    border: 3px solid rgb(50, 34, 11);
     width: 350px;
     padding: 10px;
     margin: auto;
     margin-top: 30px;
     text-align: center;
     border-radius: 3em;
+}
+
+/* settings for the text at the top of the fieldset */
+legend{
+    font-size: 120%;
+    font-weight: bold;
+    color: rgb(50, 34, 11);
 }
 
 /* specifically for the music box */
@@ -275,6 +288,7 @@ input[type="range"] {
     height: 15px;
     width: 200px;
     outline: none;
+    cursor:pointer;
 }
 
 /* Specifically for the background noise */
@@ -302,8 +316,8 @@ input[type="range"].range.background ::-webkit-slider-thumb {
 .trackIcon{
     display:flex;
     cursor: default;
-    width: 100px;
-    height: 100px;
+    width: 75px;
+    height: 75px;
     margin: auto;
     padding: 20px; 
     font-size: 300%;  
@@ -311,6 +325,6 @@ input[type="range"].range.background ::-webkit-slider-thumb {
 }
 
 .trackIcon img {
-    width: 100px;
-    height: 100px;
+    width: 75px;
+    height: 75px;
 }
