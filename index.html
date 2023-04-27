@@ -7,44 +7,43 @@
 </head>
 <body>
     <div class="main">
-        <div class = "logo">
-            <!-- logo goes here -->
+        <div class = "topRow">
+            <button id="mute" class = "secondary holdsColor">MUTE ALL</button>
         </div>
-        <div class = "music">
-            <fieldset id="musicBox">
-                <div class = "buttons">
-                    <button class="primary">PLAY MUSIC</button>
-                    <div class = "changingButtons">
-                        <button id="changeIt" class="secondary">CHANGE IT UP</button>
-                        <label class="container like"><input type="checkbox" id="like"/><span class ="checkmark"></span> KEEP ME HERE </label>        
+        <div class = "bottomRow">
+            <div class = "noise">
+                <fieldset><legend>BACKGROUND NOISE</legend>
+                    <label class="container"><img src="images/forest.png"/><input type="checkbox" id="forest" onchange="playBackgroundNoise()"/><span class="checkmark"></span></label>
+                    <label class="container"><img src="images/grasslands.png"/><input type="checkbox" id="grasslands" onchange="playBackgroundNoise()"/><span class="checkmark"></span></label>
+                    <label class="container"><img src="images/ocean.png"/><input type="checkbox" id="ocean" onchange="playBackgroundNoise()"/><span class="checkmark"></span></label>
+                    <label class="container"><img src="images/rain.png"/><input type="checkbox" id="rain" onchange="playBackgroundNoise()"/><span class="checkmark"></span></label>
+                    <label class="container"><img src="images/fireplace.png"/><input type="checkbox" id="fireplace" onchange="playBackgroundNoise()"/><span class="checkmark"></span></label>
+                    <label class="container"><img src="images/cafe.png"/><input type="checkbox" id="cafe" onchange="playBackgroundNoise()"/><span class="checkmark"></span></label>
+                    
+                    <input class="range background" type="range" id="backgroundVolume" min="0" max="100" value="50">
+                </fieldset>
+            </div>
+            <div class = "music">
+                <fieldset id="musicBox"><legend>MUSIC</legend>
+                    <div class = "musicButtons">
+                        <button class="primary">PLAY MUSIC</button>
+                        <div class = "changingButtons">
+                            <button id="changeIt" class="secondary">CHANGE IT UP</button>
+                            <label class="container like"><input type="checkbox" id="like"/><span class ="checkmark"></span> KEEP ME HERE </label>        
+                        </div>
                     </div>
-                </div>
-
-                <input class="range" type ="range" id="musicVolume" min="0" max="100" value="50">
-                
-                <div class = "currentTracks">
-                    <label class="trackIcon"><img src="images/drums.png"/><p id="pDrums">1</p></label>
-                    <label class="trackIcon"><img src="images/guitar.png"/><p id="pGuitar">1</p></label>
-                    <label class="trackIcon"><img src="images/melody.png"/><p id="pMelody">1</p></label>
-                    <label class="trackIcon"><img src="images/piano.png"/><p id="pPiano">1</p></label>
-                </div>
-            </fieldset>
-        </div>
-        <div class = "noise">
-            <fieldset><legend>BACKGROUND NOISE</legend>
-                <label class="container"><img src="images/forest.png"/><input type="checkbox" id="forest" onchange="playBackgroundNoise()"/><span class="checkmark"></span></label>
-                <label class="container"><img src="images/grasslands.png"/><input type="checkbox" id="grasslands" onchange="playBackgroundNoise()"/><span class="checkmark"></span></label>
-                <label class="container"><img src="images/ocean.png"/><input type="checkbox" id="ocean" onchange="playBackgroundNoise()"/><span class="checkmark"></span></label>
-                <label class="container"><img src="images/rain.png"/><input type="checkbox" id="rain" onchange="playBackgroundNoise()"/><span class="checkmark"></span></label>
-                <label class="container"><img src="images/fireplace.png"/><input type="checkbox" id="fireplace" onchange="playBackgroundNoise()"/><span class="checkmark"></span></label>
-                <label class="container"><img src="images/cafe.png"/><input type="checkbox" id="cafe" onchange="playBackgroundNoise()"/><span class="checkmark"></span></label>
-                
-                <input class="range background" type="range" id="backgroundVolume" min="0" max="100" value="50">
-            </fieldset>
-        </div>
-        
-        <!-- <button id="like" class="secondary holdsColor">KEEP ME HERE</button> -->
-        <button id="mute" class = "secondary holdsColor">MUTE ALL</button>
+    
+                    <input class="range" type ="range" id="musicVolume" min="0" max="100" value="50">
+                    
+                    <div class = "currentTracks">
+                        <label class="trackIcon"><img src="images/drums.png"/><p id="pDrums">1</p></label>
+                        <label class="trackIcon"><img src="images/guitar.png"/><p id="pGuitar">1</p></label>
+                        <label class="trackIcon"><img src="images/melody.png"/><p id="pMelody">1</p></label>
+                        <label class="trackIcon"><img src="images/piano.png"/><p id="pPiano">1</p></label>
+                    </div>
+                </fieldset>
+            </div>
+        </div> 
     </div>
     
     <script src = "./ourScript.js"></script>

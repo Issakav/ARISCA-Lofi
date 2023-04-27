@@ -24,21 +24,25 @@ button.primary      <-- <button> element with class="primary"
 /* Settings for all of the divs */
 .main{
     /* outline: solid lightgreen; */
-    display: flex;  
-    flex-flow: row wrap;
-    justify-content: flex-end;
-    height:690px
+    height:600px;
+}
+
+.topRow{
+    width: 100%;
+}
+.bottomRow{
+    width: 100%;
+    display: flex;
+    margin-top: 10px;
+    justify-content: center;
 }
 
 .music{
     /* outline: solid blue; */
-    display: flex;
-    flex-flow: row wrap;
-    justify-content: space-around;
-    width: 67%;
+    width: 60%;
 }
 
-.buttons{
+.musicButtons{
     /* outline: solid greenyellow; */
     display: flex;
     flex-flow: row wrap;
@@ -57,20 +61,15 @@ button.primary      <-- <button> element with class="primary"
 
 .noise{
     /* border: solid green;  */
-    display: flex;
-    flex-wrap: row wrap;
+    display: grid;
     text-align: center;
-    justify-content: space-between;
-    width: 37%;
-    position: relative;
-    top: -270px;
+    width: 30%;
 }
 
 
 /* Settings for the buttons */
 button {
     padding: 15px 32px;
-    text-decoration: none;
     font-size: 16px;
     font-family: Georgia, 'Times New Roman', Times, serif;
     transition-duration: 0.4s;
@@ -118,10 +117,7 @@ button {
     border-radius: 5ex;
     background-color: rgb(212, 191, 162);
     color: rgb(50, 34, 11);
-    margin-top: 10px;
     font-size: 200%;
-    justify-content: flex-end;
-    margin-top: 150px;
 }
 
 #mute:hover{
@@ -134,9 +130,9 @@ label {
     position: relative; 
     padding:10px;
     cursor: pointer;
-    width: 160px;
-    height: 20px;
-    margin: 20px;
+    /* width: 160px; */
+    /* height: 20px; */
+    margin: 10px 10px;
     font-family: Georgia, 'Times New Roman', Times, serif;
 }
 
@@ -259,7 +255,7 @@ label img {
 /* The box outline around music and noises */
 fieldset {
     border: 3px solid rgb(50, 34, 11);
-    width: 350px;
+    width: 330px;
     padding: 10px;
     margin: auto;
     margin-top: 30px;
@@ -272,6 +268,7 @@ legend{
     font-size: 120%;
     font-weight: bold;
     color: rgb(50, 34, 11);
+    
 }
 
 /* specifically for the music box */
@@ -289,6 +286,7 @@ input[type="range"] {
     width: 200px;
     outline: none;
     cursor:pointer;
+    margin-top: 10px;
 }
 
 /* Specifically for the background noise */
