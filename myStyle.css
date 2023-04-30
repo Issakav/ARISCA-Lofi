@@ -1,5 +1,5 @@
 body {
-    background-color: #c2b6a5;
+    background-color: rgb(194, 182, 165);
 }
 
 /* CSS selector */
@@ -18,11 +18,11 @@ button.primary      <-- <button> element with class="primary"
 
 /* Settings for all of the divs */
 .main {
-    height:600px;
+    width: 100%;
+    height: 100%;
 }
 
 .topRow {
-    float: left;
     margin: 40px auto 0px;
     width: 100%;
     display: flex;
@@ -306,7 +306,7 @@ input[type="range"].range.background::-webkit-slider-thumb {
 
 /* The currently playing tracks */
 .trackIcon {
-    display:flex;
+    display: flex;
     cursor: default;
     width: 75px;
     height: 75px;
@@ -319,4 +319,35 @@ input[type="range"].range.background::-webkit-slider-thumb {
 .trackIcon img {
     width: 75px;
     height: 75px;
+}
+
+/* Responsive layout - makes a one column layout instead of a two-column layout */
+@media (max-width: 1300px) {
+    .musicButtons {
+        display: inline-block;
+    }
+    /* .trackIcon {
+        display: inline-block;
+    } */
+    /* .currentTracks {
+        display: inline-block;
+    } */
+    fieldset {
+        width: 300px;
+    }
+    #musicBox {
+        width: 500px;
+    }
+}
+
+@media (max-width: 1000px) {
+    .topRow {
+        display: inline-block;
+    }
+    .bottomRow {
+        display: inline-block;
+    }
+    .musicButtons {
+        display: inline-block;
+    }
 }

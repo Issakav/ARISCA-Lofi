@@ -6,7 +6,7 @@ let gainNodes = [];
 let tracks; //Drums, Piano, Melody, Guitar
 
 const currentlyPlaying = []; //set of VOLUME nodes NOT audio
-const properBtn = document.querySelector(".primary");
+const playPauseButton = document.querySelector(".primary");
 const likeCheckbox = document.getElementById('like');
 const changeButton = document.getElementById("changeIt");
 const muteButton = document.getElementById("mute");
@@ -76,14 +76,11 @@ const checkboxes = [forestCheckbox, grasslandsCheckbox, oceanCheckbox, rainCheck
 
 let changedTrack = null; 
 
-
-
-
-properBtn.addEventListener("click", () => {
+playPauseButton.addEventListener("click", () => {
   if (started == false) {
     playing = true;
     audioContext = new AudioContext();
-    properBtn.textContent = 'PAUSE MUSIC';
+    playPauseButton.textContent = 'PAUSE MUSIC';
     started = true;
     setupTracks(trackPaths).then((response) => {
       let tracks = response;
@@ -107,12 +104,12 @@ properBtn.addEventListener("click", () => {
     if (audioContext.state === 'running') {
       playing = false;
       audioContext.suspend().then(function () {
-        properBtn.textContent = 'RESUME MUSIC';
+        playPauseButton.textContent = 'RESUME MUSIC';
       });
     } else if (audioContext.state === 'suspended') {
       playing = true;
       audioContext.resume().then(function () {
-        properBtn.textContent = 'PAUSE MUSIC';
+        playPauseButton.textContent = 'PAUSE MUSIC';
       });
     }
   }
@@ -134,6 +131,8 @@ musicVolume.addEventListener("input", function(slider) {
   for (const track of currentlyPlaying) {
     track.gain.value = slider.currentTarget.value / 100;
   }
+  // Changing the background color of the slider depending on the input: 
+  // https://stackoverflow.com/questions/18389224/how-to-style-html5-range-input-to-have-different-color-before-and-after-slider
   let value = (this.value-this.min)/(this.max-this.min)*100
   this.style.background = 'linear-gradient(to right, rgb(5, 22, 56) 0%, rgb(5, 22, 56) ' + value + '%, rgb(187, 219, 255) ' + value + '%, rgb(187, 219, 255) 100%)'
 })
@@ -167,7 +166,7 @@ muteButton.addEventListener("click", () =>{
   if (playing) {
     playing = false;
     audioContext.suspend().then(function () {
-      properBtn.textContent = 'RESUME MUSIC';
+      playPauseButton.textContent = 'RESUME MUSIC';
     });
   }
   for (const checkbox of checkboxes) {
@@ -215,7 +214,7 @@ function changeTrack() {
       }
       const typeToChange = getRndInteger(1, 6);
       if (typeToChange == 5) { //sets one track at random to silent for 1 bar to create a sort of beat droppy effect
-        const typeToMute = getRndInteger(1, 5); // ?
+        const typeToMute = getRndInteger(1, 5); 
         const trackToChange = setTracks[typeToMute - 1];
         trackToChange.gain.value = 0;
         setTimeout(() => {
