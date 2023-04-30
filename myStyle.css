@@ -1,5 +1,5 @@
 body {
-    background-color: rgb(194, 182, 165);
+    background-color: #c2b6a5;
 }
 
 /* CSS selector */
@@ -22,13 +22,22 @@ button.primary      <-- <button> element with class="primary"
 }
 
 .topRow {
+    float: left;
     margin: 40px auto 0px;
     width: 100%;
+    display: flex;
+    justify-content: center;
 }
+
 .bottomRow {
     width: 100%;
     display: flex;
     justify-content: center;
+}
+
+.logo {
+    width: 600px;
+    height: 150px;
 }
 
 .music {
@@ -291,9 +300,8 @@ input[type="range"]::-webkit-slider-thumb {
     -webkit-appearance: none;
 }
 
-input[type="range"].range.background ::-webkit-slider-thumb {
+input[type="range"].range.background::-webkit-slider-thumb {
     background: rgb(8, 72, 90); 
-    /* fix this is not working :( */
 }
 
 /* The currently playing tracks */
