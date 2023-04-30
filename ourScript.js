@@ -1,4 +1,4 @@
-console.log("hello");
+
 
 let audioContext;
 let volume;
@@ -24,26 +24,27 @@ guitarText.innerHTML = "1";
 melodyText.innerHTML = "1";
 pianoText.innerHTML = "1";
 
+let previousDrumText = null;
+let previousGuitarText = null;
+let previousMelodyText = null;
+let previousPianoText = null;
 
 
-const oneBar = 5647; // length of one bar. TODO: update
-/* Note: The new sounds that I added in are all 5.647 second long. 
-I know this is a really inconvenient number and if the math doesn't work or anything
-lmk and I can fix the length, that was just the length that all of them looped
-the best when I listened to it on garageband
-*/
+
+const oneBar = 5647; // length of one bar
+
 
 /*
 Note on nature sounds:
-They are unfortunately all different lengths
   Forest: 12.285s
   Ocean: 12.083
   Grasslands: 12.930s
   Rain: 30.000s
 */
+
 let nextTime = 0;
 
-let started = false; // a boolean checking if the button should play/pause
+let started = false; 
 let playing = false;
 
 const drumTrackPaths = ["./audio/Drum_1.wav", "./audio/Drum_2.wav", "./audio/Drum_3.wav", "./audio/Drum_4.wav", "./audio/Drum_5.wav"];
@@ -75,33 +76,27 @@ const checkboxes = [forestCheckbox, grasslandsCheckbox, oceanCheckbox, rainCheck
 
 let changedTrack = null; 
 
-let lastTrackNumber = null;
-let lastTypeToChange = null;
+
 
 
 properBtn.addEventListener("click", () => {
   if (started == false) {
     playing = true;
     audioContext = new AudioContext();
-    console.log("Started the Audio Context");
     properBtn.textContent = 'PAUSE MUSIC';
     started = true;
     setupTracks(trackPaths).then((response) => {
       let tracks = response;
-      console.log(tracks);
       const playingTracks = [];
       for (const track of tracks) {
         nextTime = audioContext.currentTime;
         playingTracks.push(playTrack(track, 0).start());
       }
       let i = 0;
-      console.log(0);
       while (i < gainNodes.length) {
         if (i%5 != 0){
-          console.log(i);
           gainNodes[i].gain.value = 0;
         } else {
-          console.log(i + "mod");
           currentlyPlaying.push(gainNodes[i]);
         }
         i++;
@@ -123,7 +118,18 @@ properBtn.addEventListener("click", () => {
   }
 });
 
-// we can change the range of values for the volume (currently 0-100) if the changes aren't noticable enough
+likeCheckbox.addEventListener('change', () => {
+  if(likeCheckbox.checked){
+    previousDrumText = drumText.textContent;
+    previousGuitarText = guitarText.textContent;
+    previousMelodyText = melodyText.textContent;
+    previousPianoText = pianoText.textContent;
+  } else {
+    setPreviousTextNull();
+  }
+})
+
+
 musicVolume.addEventListener("input", function(slider) {
   for (const track of currentlyPlaying) {
     track.gain.value = slider.currentTarget.value / 100;
@@ -136,6 +142,7 @@ changeButton.addEventListener("click", () =>{
   if (playing){
     if (likeCheckbox.checked) {
       likeCheckbox.click();
+      setPreviousTextNull();
     }
     for (i = 0; i < currentlyPlaying.length; i++) {
       currentlyPlaying[i].gain.value = 0;
@@ -173,9 +180,9 @@ muteButton.addEventListener("click", () =>{
 function changeTrack() {
   if (playing){
     
-    if (!likeCheckbox.checked) { 
+    if (!likeCheckbox.checked) {
+      setPreviousTextNull();
       const typeToChange = getRndInteger(1, 6);
-      console.log(typeToChange);
       if (typeToChange == 5) { //sets one track at random to silent for 1 bar to create a sort of beat droppy effect
         const typeToMute = getRndInteger(1, 5);
         const trackToChange = currentlyPlaying[typeToMute - 1];
@@ -187,7 +194,7 @@ function changeTrack() {
         const trackToChange = currentlyPlaying[typeToChange - 1]; //trackToChange is actually a gain node, not a track
         trackToChange.gain.value = 0;
         const newTrackNumber = getRndInteger((typeToChange-1) * 5, (typeToChange * 5) -1)
-        const newTrack = gainNodes[newTrackNumber];//[getRndInteger((typeToChange - 1) * 5, (typeToChange * 5) - 1)];
+        const newTrack = gainNodes[newTrackNumber];
         newTrack.gain.value = musicVolume.value / 100;
         currentlyPlaying[typeToChange - 1] = newTrack;
         updateTrackDisplay(typeToChange, newTrackNumber);
@@ -207,7 +214,6 @@ function changeTrack() {
         track.gain.value = musicVolume.value / 100;
       }
       const typeToChange = getRndInteger(1, 6);
-      console.log(typeToChange);
       if (typeToChange == 5) { //sets one track at random to silent for 1 bar to create a sort of beat droppy effect
         const typeToMute = getRndInteger(1, 5); // ?
         const trackToChange = setTracks[typeToMute - 1];
@@ -216,6 +222,12 @@ function changeTrack() {
           trackToChange.gain.value = musicVolume.value / 100;
         }, oneBar);
       } else { //swaps one track for another of the same type. sometimes changes it for itself causing no change so that the changes don't feel as consistent.
+        
+        updateTrackDisplay(1, parseInt(previousDrumText) - 1);
+        updateTrackDisplay(2, parseInt(previousGuitarText) + 4);
+        updateTrackDisplay(3, parseInt(previousMelodyText) + 9);
+        updateTrackDisplay(4, parseInt(previousPianoText) + 14);
+        
         const trackToChange = setTracks[typeToChange - 1]; //trackToChange is actually a gain node, not a track
         trackToChange.gain.value = 0;
         const newTrackNumber = getRndInteger((typeToChange-1) * 5, (typeToChange * 5) -1);
@@ -224,39 +236,18 @@ function changeTrack() {
         setTracks[typeToChange - 1].gain.value = 0;
         changedTrack = newTrack;
 
-        // if(lastTrackNumber != null) {
-        //   updateTrackDisplay(lastTypeToChange, lastTrackNumber);
-        // }
-        // if(typeToChange == 1){
-        //   lastTrackNumber = parseInt(document.getElementById("pDrums").innerHTML);
-        // }else if (typeToChange == 2){
-        //   lastTrackNumber = parseInt(document.getElementById("pGuitar").innerHTML);
-        // }else if (typeToChange == 3){
-        //   lastTrackNumber = parseInt(document.getElementById("pMelody").innerHTML);
-        // }else if (typeToChange == 4){
-        //   lastTrackNumber = parseInt(document.getElementById("pPiano").innerHTML);
-        // } 
-        
-        // lastTypeToChange = typeToChange;
-
-
-
-
         updateTrackDisplay(typeToChange, newTrackNumber);
-        
-
-
-
-        
-        
-
-        
-
-
       }
     }
   }
   
+}
+
+function setPreviousTextNull(){
+  previousDrumText = null;
+  previousGuitarText = null;
+  previousMelodyText = null;
+  previousPianoText = null;
 }
 
 function updateTrackDisplay(typeToChange, newTrackNumber){
@@ -293,13 +284,11 @@ async function getAudioFile(filePath) {
  * @returns an array of audio buffers made from the files that paths point to
  */
 async function setupTracks(paths) {
-  console.log("Setting up tracks")
   const audioBuffers = [];
   for (const path of paths) {
     const track = await getAudioFile(path);
     audioBuffers.push(track);
   }
-  console.log("Finished setting up tracks");
   return audioBuffers;
 }
 
