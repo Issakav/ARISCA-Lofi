@@ -15,43 +15,34 @@ button.primary      <-- <button> element with class="primary"
 
 */
 
-/* REMOVE BORDERS EVENTUALLY
-        USE JUST FOR VISUALIZAITON */
-/* div{
-    outline: solid #f20303;
-} */
 
 /* Settings for all of the divs */
-.main{
-    /* outline: solid lightgreen; */
+.main {
     height:600px;
 }
 
-.topRow{
+.topRow {
+    margin: 40px auto 0px;
     width: 100%;
 }
-.bottomRow{
+.bottomRow {
     width: 100%;
     display: flex;
-    margin-top: 10px;
     justify-content: center;
 }
 
-.music{
-    /* outline: solid blue; */
+.music {
     width: 60%;
 }
 
-.musicButtons{
-    /* outline: solid greenyellow; */
+.musicButtons {
     display: flex;
     flex-flow: row wrap;
     text-align: center;
     justify-content: flex-start;
 }
 
-.currentTracks{
-    /* outline: solid orange; */
+.currentTracks {
     display: flex;
     flex-flow: row wrap;
     width: 100%;
@@ -59,8 +50,7 @@ button.primary      <-- <button> element with class="primary"
     justify-content: center;
 }
 
-.noise{
-    /* border: solid green;  */
+.noise {
     display: grid;
     text-align: center;
     width: 30%;
@@ -83,11 +73,9 @@ button {
     background-color: rgb(187, 219, 255);
     color: rgb(5, 22, 56);
     border-radius: 1ex;
-    margin: auto;
     height:190px;
     width: 400px;
-    margin-top: 20px;
-    margin-bottom: 20px;
+    margin: 20px auto;
 }
 
 .primary:hover {
@@ -95,7 +83,7 @@ button {
 }
 
 /* Like and change it up */
-.secondary{
+.secondary {
     /* font-size:100%; */
     width: 300px;
     border-radius: 3ex;
@@ -104,11 +92,10 @@ button {
     color: rgb(65, 5, 5);
     font-size: 150%;
     display: block;
-    margin: auto;
-    margin-top: 20px;
+    margin: 20px auto;
 }
 
-.secondary:hover{
+.secondary:hover {
     background-color: rgb(209, 130, 130);
 }
 
@@ -120,11 +107,11 @@ button {
     font-size: 200%;
 }
 
-#mute:hover{
+#mute:hover {
     background-color: rgb(164, 141, 108);
 }
 
-/* Checkboxes */
+/* Styling the checkboxes: https://stackoverflow.com/questions/4148499/how-to-style-a-checkbox-using-css?noredirect=1&lq=1 */
 label {
     display:inline-block;
     position: relative; 
@@ -132,7 +119,7 @@ label {
     cursor: pointer;
     /* width: 160px; */
     /* height: 20px; */
-    margin: 10px 10px;
+    margin: 10px;
     font-family: Georgia, 'Times New Roman', Times, serif;
 }
 
@@ -143,8 +130,7 @@ label img {
     padding: 5px;
 }
 
-/* more specific settings for the checkboxes */
-.container{
+.container {
     padding-left: 35px;
     -webkit-user-select: none;
     -moz-user-select: none;
@@ -159,7 +145,7 @@ label img {
 }
 
 /* hiding the default box */
-.container input{
+.container input {
     position: absolute;
     opacity: 0;
     cursor: pointer;
@@ -168,7 +154,7 @@ label img {
 }
 
 /* initial settings of the box */
-.checkmark{
+.checkmark {
     position: absolute;
     top: 25px;
     left: 10px;
@@ -180,29 +166,29 @@ label img {
 }
 
 /* Changing the color of the box when mouse is hovering */
-.container:hover input ~ .checkmark{
+.container:hover input ~ .checkmark {
     background-color: rgb(58, 120, 124);
 }
 
 /* Changing the background color of the box when clicked */
-.container input:checked ~ .checkmark{
+.container input:checked ~ .checkmark { 
     background-color: rgb(8, 72, 90);
 }
 
 /* creating the checkmark */
-.checkmark:after{
+.checkmark:after {
     content:"";
     position:absolute;
     display:none;
 }
 
 /* Showing the checkmark */
-.container input:checked ~ .checkmark:after{
+.container input:checked ~ .checkmark:after {
     display:block;
 }
 
 /* The checkmark */
-.container .checkmark:after{
+.container .checkmark:after {
     left: 4px;
     top: 1px;
     width: 5px;
@@ -216,7 +202,7 @@ label img {
 
 /* Settings for just the like checkbox */
 /* more specific settings for the checkboxes */
-.container.like{
+.container.like {
     width: 240px;
     border-radius: 3ex;
     padding: 15px 32px;
@@ -225,22 +211,23 @@ label img {
     background-color: rgb(187, 255, 189);
     color: rgb(5, 65, 20);
     font-size: 150%;
+    margin: 0 20px;
 }
 
 /* initial settings of the box */
-.container.like input ~ .checkmark{
+.container.like input ~ .checkmark {
     top: 16px;
     background-color: rgb(187, 255, 189);
     border: .5ex solid rgb(5, 65, 20);
 }
 
 /* Changing the color of the box when mouse is hovering */
-.container.like:hover input ~ .checkmark{
+.container.like:hover input ~ .checkmark {
     background-color: rgb(54, 120, 55);
 }
 
 /* Changing the background color of the box when clicked */
-.container.like input:checked ~ .checkmark{
+.container.like input:checked ~ .checkmark {
     background-color: rgb(5, 65, 20);
 }
 
@@ -257,14 +244,13 @@ fieldset {
     border: 3px solid rgb(50, 34, 11);
     width: 330px;
     padding: 10px;
-    margin: auto;
-    margin-top: 30px;
+    margin: 20px auto;
     text-align: center;
     border-radius: 3em;
 }
 
 /* settings for the text at the top of the fieldset */
-legend{
+legend {
     font-size: 120%;
     font-weight: bold;
     color: rgb(50, 34, 11);
@@ -272,7 +258,7 @@ legend{
 }
 
 /* specifically for the music box */
-#musicBox{
+#musicBox {
     width: 800px;
 }
 
@@ -286,7 +272,7 @@ input[type="range"] {
     width: 200px;
     outline: none;
     cursor:pointer;
-    margin-top: 10px;
+    margin: 20px;
 }
 
 /* Specifically for the background noise */
@@ -311,12 +297,12 @@ input[type="range"].range.background ::-webkit-slider-thumb {
 }
 
 /* The currently playing tracks */
-.trackIcon{
+.trackIcon {
     display:flex;
     cursor: default;
     width: 75px;
     height: 75px;
-    margin: auto;
+    margin: 0px auto 10px;
     padding: 20px; 
     font-size: 300%;  
     text-align: center;
