@@ -6,13 +6,12 @@ let gainNodes = [];
 let tracks; //Drums, Piano, Melody, Guitar
 
 const currentlyPlaying = []; //set of VOLUME nodes NOT audio
-const playPauseButton = document.querySelector(".primary");
+const properBtn = document.querySelector(".primary");
 const likeCheckbox = document.getElementById('like');
 const changeButton = document.getElementById("changeIt");
 const muteButton = document.getElementById("mute");
 let backgroundVolume = document.querySelector("#backgroundVolume"); 
 let musicVolume = document.querySelector("#musicVolume");
-
 
 const drumText = document.getElementById("pDrums");
 const guitarText = document.getElementById("pGuitar");
@@ -29,13 +28,12 @@ let previousGuitarText = null;
 let previousMelodyText = null;
 let previousPianoText = null;
 
-
-
 const oneBar = 5647; // length of one bar
 
 
 /*
 Note on nature sounds:
+They are unfortunately all different lengths
   Forest: 12.285s
   Ocean: 12.083
   Grasslands: 12.930s
@@ -76,11 +74,11 @@ const checkboxes = [forestCheckbox, grasslandsCheckbox, oceanCheckbox, rainCheck
 
 let changedTrack = null; 
 
-playPauseButton.addEventListener("click", () => {
+properBtn.addEventListener("click", () => {
   if (started == false) {
     playing = true;
     audioContext = new AudioContext();
-    playPauseButton.textContent = 'PAUSE MUSIC';
+    properBtn.textContent = 'PAUSE MUSIC';
     started = true;
     setupTracks(trackPaths).then((response) => {
       let tracks = response;
@@ -104,12 +102,12 @@ playPauseButton.addEventListener("click", () => {
     if (audioContext.state === 'running') {
       playing = false;
       audioContext.suspend().then(function () {
-        playPauseButton.textContent = 'RESUME MUSIC';
+        properBtn.textContent = 'RESUME MUSIC';
       });
     } else if (audioContext.state === 'suspended') {
       playing = true;
       audioContext.resume().then(function () {
-        playPauseButton.textContent = 'PAUSE MUSIC';
+        properBtn.textContent = 'PAUSE MUSIC';
       });
     }
   }
@@ -126,13 +124,10 @@ likeCheckbox.addEventListener('change', () => {
   }
 })
 
-
 musicVolume.addEventListener("input", function(slider) {
   for (const track of currentlyPlaying) {
     track.gain.value = slider.currentTarget.value / 100;
   }
-  // Changing the background color of the slider depending on the input: 
-  // https://stackoverflow.com/questions/18389224/how-to-style-html5-range-input-to-have-different-color-before-and-after-slider
   let value = (this.value-this.min)/(this.max-this.min)*100
   this.style.background = 'linear-gradient(to right, rgb(5, 22, 56) 0%, rgb(5, 22, 56) ' + value + '%, rgb(187, 219, 255) ' + value + '%, rgb(187, 219, 255) 100%)'
 })
@@ -166,7 +161,7 @@ muteButton.addEventListener("click", () =>{
   if (playing) {
     playing = false;
     audioContext.suspend().then(function () {
-      playPauseButton.textContent = 'RESUME MUSIC';
+      properBtn.textContent = 'RESUME MUSIC';
     });
   }
   for (const checkbox of checkboxes) {
@@ -178,14 +173,25 @@ muteButton.addEventListener("click", () =>{
 
 function changeTrack() {
   if (playing){
+    
     if (!likeCheckbox.checked) {
       setPreviousTextNull();
       const typeToChange = getRndInteger(1, 6);
       if (typeToChange == 5) { //sets one track at random to silent for 1 bar to create a sort of beat droppy effect
+        const typeToMute = getRndInteger(1, 5);
         const trackToChange = currentlyPlaying[typeToMute - 1];
-        randomMuteOneBar(trackToChange);
+        trackToChange.gain.value = 0;
+        setTimeout(() => {
+          trackToChange.gain.value = musicVolume.value / 100;
+        }, oneBar);
       } else { //swaps one track for another of the same type. sometimes changes it for itself causing no change so that the changes don't feel as consistent.
-        changeTrackUpdate(typeToChange);
+        const trackToChange = currentlyPlaying[typeToChange - 1]; //trackToChange is actually a gain node, not a track
+        trackToChange.gain.value = 0;
+        const newTrackNumber = getRndInteger((typeToChange-1) * 5, (typeToChange * 5) -1)
+        const newTrack = gainNodes[newTrackNumber];
+        newTrack.gain.value = musicVolume.value / 100;
+        currentlyPlaying[typeToChange - 1] = newTrack;
+        updateTrackDisplay(typeToChange, newTrackNumber);
       }
     } 
     else {
@@ -201,51 +207,43 @@ function changeTrack() {
       }
       const typeToChange = getRndInteger(1, 6);
       if (typeToChange == 5) { //sets one track at random to silent for 1 bar to create a sort of beat droppy effect
+        const typeToMute = getRndInteger(1, 5); // ?
         const trackToChange = setTracks[typeToMute - 1];
-        randomMuteOneBar(trackToChange);
+        trackToChange.gain.value = 0;
+        setTimeout(() => {
+          trackToChange.gain.value = musicVolume.value / 100;
+        }, oneBar);
       } else { //swaps one track for another of the same type. sometimes changes it for itself causing no change so that the changes don't feel as consistent.
-        revertAllTrackDisplays();
-        changeTrackWhileLiked(typeToChange);
+        
+        updateAllTrackDisplays();
+
+        changeAndUpdateTrackLiked(typeToChange, setTracks);
+
+
+        
       }
     }
   }
+  
 }
 
-function changeTrackUpdate(typeToChange){
-  const trackToChange = currentlyPlaying[typeToChange - 1]; //trackToChange is actually a gain node, not a track
+function changeAndUpdateTrackLiked(typeTrackToChange, setOfLikedTracks){
+  const trackToChange = setOfLikedTracks[typeTrackToChange - 1]; //trackToChange is actually a gain node, not a track
   trackToChange.gain.value = 0;
-  const newTrackNumber = getRndInteger((typeToChange-1) * 5, (typeToChange * 5) -1)
+  const newTrackNumber = getRndInteger((typeTrackToChange-1) * 5, (typeTrackToChange * 5) -1);
   const newTrack = gainNodes[newTrackNumber];
   newTrack.gain.value = musicVolume.value / 100;
-  currentlyPlaying[typeToChange - 1] = newTrack;
-  updateTrackDisplay(typeToChange, newTrackNumber);
-}
-
-function changeTrackUpdateLiked(typeToChange){
-  const trackToChange = setTracks[typeToChange - 1]; //trackToChange is actually a gain node, not a track
-  trackToChange.gain.value = 0;
-  const newTrackNumber = getRndInteger((typeToChange-1) * 5, (typeToChange * 5) -1);
-  const newTrack = gainNodes[newTrackNumber];
-  newTrack.gain.value = musicVolume.value / 100;
-  setTracks[typeToChange - 1].gain.value = 0;
+  setOfLikedTracks[typeTrackToChange - 1].gain.value = 0;
   changedTrack = newTrack;
-  updateTrackDisplay(typeToChange, newTrackNumber);
+  updateTrackDisplay(typeTrackToChange, newTrackNumber);
 }
 
-function revertAllTrackDisplays(){
+
+function updateAllTrackDisplays(){
   updateTrackDisplay(1, parseInt(previousDrumText) - 1);
   updateTrackDisplay(2, parseInt(previousGuitarText) + 4);
   updateTrackDisplay(3, parseInt(previousMelodyText) + 9);
   updateTrackDisplay(4, parseInt(previousPianoText) + 14);
-}
-
-function randomMuteOneBar(trackToChange){
-  const typeToMute = getRndInteger(0, 4); 
-  const trackToChange = setTracks[typeToMute];
-  trackToChange.gain.value = 0;
-  setTimeout(() => {
-    trackToChange.gain.value = musicVolume.value / 100;
-  }, oneBar);
 }
 
 function setPreviousTextNull(){
@@ -270,12 +268,10 @@ function updateTrackDisplay(typeToChange, newTrackNumber){
   }
 }
 
-
 //min is inclusive, max is not. 
 function getRndInteger(min, max) {
   return Math.floor(Math.random() * (max - min)) + min;
 }
-
 
 async function getAudioFile(filePath) {
   const response = await fetch(filePath);
