@@ -178,27 +178,14 @@ muteButton.addEventListener("click", () =>{
 
 function changeTrack() {
   if (playing){
-    
     if (!likeCheckbox.checked) {
       setPreviousTextNull();
       const typeToChange = getRndInteger(1, 6);
       if (typeToChange == 5) { //sets one track at random to silent for 1 bar to create a sort of beat droppy effect
-        const typeToMute = getRndInteger(1, 5);
         const trackToChange = currentlyPlaying[typeToMute - 1];
-        trackToChange.gain.value = 0;
-        setTimeout(() => {
-          trackToChange.gain.value = musicVolume.value / 100;
-        }, oneBar);
+        randomMuteOneBar(trackToChange);
       } else { //swaps one track for another of the same type. sometimes changes it for itself causing no change so that the changes don't feel as consistent.
-        const trackToChange = currentlyPlaying[typeToChange - 1]; //trackToChange is actually a gain node, not a track
-        trackToChange.gain.value = 0;
-        const newTrackNumber = getRndInteger((typeToChange-1) * 5, (typeToChange * 5) -1)
-        const newTrack = gainNodes[newTrackNumber];
-        newTrack.gain.value = musicVolume.value / 100;
-        currentlyPlaying[typeToChange - 1] = newTrack;
-        updateTrackDisplay(typeToChange, newTrackNumber);
-
-
+        changeTrackUpdate(typeToChange);
       }
     } 
     else {
@@ -214,32 +201,51 @@ function changeTrack() {
       }
       const typeToChange = getRndInteger(1, 6);
       if (typeToChange == 5) { //sets one track at random to silent for 1 bar to create a sort of beat droppy effect
-        const typeToMute = getRndInteger(1, 5); 
         const trackToChange = setTracks[typeToMute - 1];
-        trackToChange.gain.value = 0;
-        setTimeout(() => {
-          trackToChange.gain.value = musicVolume.value / 100;
-        }, oneBar);
+        randomMuteOneBar(trackToChange);
       } else { //swaps one track for another of the same type. sometimes changes it for itself causing no change so that the changes don't feel as consistent.
-        
-        updateTrackDisplay(1, parseInt(previousDrumText) - 1);
-        updateTrackDisplay(2, parseInt(previousGuitarText) + 4);
-        updateTrackDisplay(3, parseInt(previousMelodyText) + 9);
-        updateTrackDisplay(4, parseInt(previousPianoText) + 14);
-        
-        const trackToChange = setTracks[typeToChange - 1]; //trackToChange is actually a gain node, not a track
-        trackToChange.gain.value = 0;
-        const newTrackNumber = getRndInteger((typeToChange-1) * 5, (typeToChange * 5) -1);
-        const newTrack = gainNodes[newTrackNumber];
-        newTrack.gain.value = musicVolume.value / 100;
-        setTracks[typeToChange - 1].gain.value = 0;
-        changedTrack = newTrack;
-
-        updateTrackDisplay(typeToChange, newTrackNumber);
+        revertAllTrackDisplays();
+        changeTrackWhileLiked(typeToChange);
       }
     }
   }
-  
+}
+
+function changeTrackUpdate(typeToChange){
+  const trackToChange = currentlyPlaying[typeToChange - 1]; //trackToChange is actually a gain node, not a track
+  trackToChange.gain.value = 0;
+  const newTrackNumber = getRndInteger((typeToChange-1) * 5, (typeToChange * 5) -1)
+  const newTrack = gainNodes[newTrackNumber];
+  newTrack.gain.value = musicVolume.value / 100;
+  currentlyPlaying[typeToChange - 1] = newTrack;
+  updateTrackDisplay(typeToChange, newTrackNumber);
+}
+
+function changeTrackUpdateLiked(typeToChange){
+  const trackToChange = setTracks[typeToChange - 1]; //trackToChange is actually a gain node, not a track
+  trackToChange.gain.value = 0;
+  const newTrackNumber = getRndInteger((typeToChange-1) * 5, (typeToChange * 5) -1);
+  const newTrack = gainNodes[newTrackNumber];
+  newTrack.gain.value = musicVolume.value / 100;
+  setTracks[typeToChange - 1].gain.value = 0;
+  changedTrack = newTrack;
+  updateTrackDisplay(typeToChange, newTrackNumber);
+}
+
+function revertAllTrackDisplays(){
+  updateTrackDisplay(1, parseInt(previousDrumText) - 1);
+  updateTrackDisplay(2, parseInt(previousGuitarText) + 4);
+  updateTrackDisplay(3, parseInt(previousMelodyText) + 9);
+  updateTrackDisplay(4, parseInt(previousPianoText) + 14);
+}
+
+function randomMuteOneBar(trackToChange){
+  const typeToMute = getRndInteger(0, 4); 
+  const trackToChange = setTracks[typeToMute];
+  trackToChange.gain.value = 0;
+  setTimeout(() => {
+    trackToChange.gain.value = musicVolume.value / 100;
+  }, oneBar);
 }
 
 function setPreviousTextNull(){
