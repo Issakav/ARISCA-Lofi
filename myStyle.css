@@ -18,12 +18,12 @@ button.primary      <-- <button> element with class="primary"
 
 /* Settings for all of the divs */
 .main {
+    margin: 0px auto 0px;
     max-width: 100%;
     max-height: 100%;
 }
 
 .topRow {
-    margin: 20px auto 0px;
     max-width: 100%;
     display: flex;
     justify-content: center;
@@ -41,7 +41,7 @@ button.primary      <-- <button> element with class="primary"
 }
 
 .music {
-    max-width: 60%;
+    /* max-width: 60%; */
     margin-left: 30px;
 }
 
@@ -65,7 +65,7 @@ button.primary      <-- <button> element with class="primary"
     display: grid;
     text-align: center;
     margin-left: 30px;
-    max-width: 30%;
+    /* max-width: 30%; */
 }
 
 
@@ -344,16 +344,21 @@ input[type="range"].range.background::-webkit-slider-thumb {
         width: 500px;
     }
     .container {
-        margin-top: 30px;
-        margin-bottom: 30px;
-        padding-top: 15px;
-        padding-bottom: 15px;
-    }
-    .container.like{
+        margin-top: 20px;
         margin-bottom: 20px;
     }
+    .container.like{
+        margin-bottom: 10px;
+    }
     input[type="range"].background {
-        margin-top: 50px;
+        margin-top: 30px;
+    }
+    .primary {
+        font-size: 200%;
+        border-radius: 2ex;
+        height:100px;
+        width: 400px;
+        margin: 10px auto;
     }
 }
 
