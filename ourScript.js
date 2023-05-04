@@ -74,6 +74,10 @@ const checkboxes = [forestCheckbox, grasslandsCheckbox, oceanCheckbox, rainCheck
 
 let changedTrack = null; 
 
+
+/**
+ * Starts and stops the music
+ */
 properBtn.addEventListener("click", () => {
   if (started == false) {
     playing = true;
@@ -113,6 +117,10 @@ properBtn.addEventListener("click", () => {
   }
 });
 
+
+/**
+ * Saves the prefered set of music labels or unsaves them if unchecked
+ */
 likeCheckbox.addEventListener('change', () => {
   if(likeCheckbox.checked){
     previousDrumText = drumText.textContent;
@@ -124,14 +132,12 @@ likeCheckbox.addEventListener('change', () => {
   }
 })
 
-musicVolume.addEventListener("input", function(slider) {
-  for (const track of currentlyPlaying) {
-    track.gain.value = slider.currentTarget.value / 100;
-  }
-  let value = (this.value-this.min)/(this.max-this.min)*100
-  this.style.background = 'linear-gradient(to right, rgb(5, 22, 56) 0%, rgb(5, 22, 56) ' + value + '%, rgb(187, 219, 255) ' + value + '%, rgb(187, 219, 255) 100%)'
-})
 
+
+
+/**
+ * Randomizes all currently playing music tracks
+ */
 changeButton.addEventListener("click", () =>{
   if (playing){
     if (likeCheckbox.checked) {
@@ -157,6 +163,10 @@ changeButton.addEventListener("click", () =>{
   }
 });
 
+
+/**
+ * Mute's all currently playing audio including background sounds
+ */
 muteButton.addEventListener("click", () =>{
   if (playing) {
     playing = false;
@@ -171,9 +181,13 @@ muteButton.addEventListener("click", () =>{
   }
 })
 
+
+
+/**
+ * Randomly changes or mute's one of the four music tracks
+ */
 function changeTrack() {
   if (playing){
-    
     if (!likeCheckbox.checked) {
       setPreviousTextNull();
       const typeToChange = getRndInteger(1, 6);
@@ -185,13 +199,7 @@ function changeTrack() {
           trackToChange.gain.value = musicVolume.value / 100;
         }, oneBar);
       } else { //swaps one track for another of the same type. sometimes changes it for itself causing no change so that the changes don't feel as consistent.
-        const trackToChange = currentlyPlaying[typeToChange - 1]; //trackToChange is actually a gain node, not a track
-        trackToChange.gain.value = 0;
-        const newTrackNumber = getRndInteger((typeToChange-1) * 5, (typeToChange * 5) -1)
-        const newTrack = gainNodes[newTrackNumber];
-        newTrack.gain.value = musicVolume.value / 100;
-        currentlyPlaying[typeToChange - 1] = newTrack;
-        updateTrackDisplay(typeToChange, newTrackNumber);
+        changeAndUpdateTrack(typeToChange);
       }
     } 
     else {
@@ -214,19 +222,33 @@ function changeTrack() {
           trackToChange.gain.value = musicVolume.value / 100;
         }, oneBar);
       } else { //swaps one track for another of the same type. sometimes changes it for itself causing no change so that the changes don't feel as consistent.
-        
         updateAllTrackDisplays();
-
         changeAndUpdateTrackLiked(typeToChange, setTracks);
-
-
-        
       }
     }
   }
   
 }
 
+/**
+ * Changes the music track of the given type and updates the music track display
+ * @param typeTrackToChange  
+ */
+function changeAndUpdateTrack(typeTrackToChange){
+  const trackToChange = currentlyPlaying[typeTrackToChange - 1]; //trackToChange is actually a gain node, not a track
+  trackToChange.gain.value = 0;
+  const newTrackNumber = getRndInteger((typeTrackToChange-1) * 5, (typeTrackToChange * 5) -1)
+  const newTrack = gainNodes[newTrackNumber];
+  newTrack.gain.value = musicVolume.value / 100;
+  currentlyPlaying[typeTrackToChange - 1] = newTrack;
+  updateTrackDisplay(typeTrackToChange, newTrackNumber);
+}
+
+/**
+ * Reverts to the saved set of liked music tracks and then changes the music track of the given type and updates the music track display.
+ * @param typeTrackToChange  
+ * @param setOfLikedTracks
+ */
 function changeAndUpdateTrackLiked(typeTrackToChange, setOfLikedTracks){
   const trackToChange = setOfLikedTracks[typeTrackToChange - 1]; //trackToChange is actually a gain node, not a track
   trackToChange.gain.value = 0;
@@ -238,7 +260,9 @@ function changeAndUpdateTrackLiked(typeTrackToChange, setOfLikedTracks){
   updateTrackDisplay(typeTrackToChange, newTrackNumber);
 }
 
-
+/**
+ * Sets all of the music track labels to the set of saved liked tracks
+ */
 function updateAllTrackDisplays(){
   updateTrackDisplay(1, parseInt(previousDrumText) - 1);
   updateTrackDisplay(2, parseInt(previousGuitarText) + 4);
@@ -246,6 +270,9 @@ function updateAllTrackDisplays(){
   updateTrackDisplay(4, parseInt(previousPianoText) + 14);
 }
 
+/**
+ * Sets all of the saved liked tracks to null
+ */
 function setPreviousTextNull(){
   previousDrumText = null;
   previousGuitarText = null;
@@ -253,6 +280,12 @@ function setPreviousTextNull(){
   previousPianoText = null;
 }
 
+
+/**
+ * Sets the music track label for the specified type to change to the number of the new track.
+ * @param typeToChange 
+ * @param newTrackNumber 
+ */
 function updateTrackDisplay(typeToChange, newTrackNumber){
   if (typeToChange == 1){
     document.getElementById("pDrums").innerHTML = (newTrackNumber + 1);
@@ -268,11 +301,16 @@ function updateTrackDisplay(typeToChange, newTrackNumber){
   }
 }
 
-//min is inclusive, max is not. 
+/**
+ * @returns a random number between min (inclusive) and max (exclusive)
+ */
 function getRndInteger(min, max) {
   return Math.floor(Math.random() * (max - min)) + min;
 }
 
+/**
+ * From a given file path to an audio file, returns an audio buffer of that file
+ */
 async function getAudioFile(filePath) {
   const response = await fetch(filePath);
   const arrayBuffer = await response.arrayBuffer();
@@ -293,6 +331,12 @@ async function setupTracks(paths) {
   return audioBuffers;
 }
 
+/**
+ * Creates an audio source from the given buffer and connects that source to output through a volume node.
+ * @param {*} audioBuffer 
+ * @param {*} time 
+ * @returns the audio buffer source node
+ */
 function playTrack(audioBuffer, time) {
   const trackSource = audioContext.createBufferSource();
   trackSource.buffer = audioBuffer;
@@ -304,6 +348,9 @@ function playTrack(audioBuffer, time) {
   return trackSource;
 }
 
+/**
+ * Plays all of the selected background tracks
+ */
 function playBackgroundNoise() {
   for (const checkbox of checkboxes) {
     const index = checkboxes.indexOf(checkbox);
@@ -316,6 +363,10 @@ function playBackgroundNoise() {
   }
 }
 
+
+/**
+ * changes the volume of the background tracks
+ */
 backgroundVolume.addEventListener("input", function(slider) {
   for (const audio of backgroundAudios) {
     audio.volume = slider.currentTarget.value / 100;
@@ -324,3 +375,13 @@ backgroundVolume.addEventListener("input", function(slider) {
   this.style.background = 'linear-gradient(to right, rgb(8, 72, 90) 0%, rgb(8, 72, 90) ' + value + '%, rgb(218, 249, 251) ' + value + '%, rgb(218, 249, 251) 100%)';
 })
 
+/**
+ * changes the volume of the music
+ */
+musicVolume.addEventListener("input", function(slider) {
+  for (const track of currentlyPlaying) {
+    track.gain.value = slider.currentTarget.value / 100;
+  }
+  let value = (this.value-this.min)/(this.max-this.min)*100
+  this.style.background = 'linear-gradient(to right, rgb(5, 22, 56) 0%, rgb(5, 22, 56) ' + value + '%, rgb(187, 219, 255) ' + value + '%, rgb(187, 219, 255) 100%)'
+})
