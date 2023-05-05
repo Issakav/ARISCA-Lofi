@@ -3,10 +3,10 @@
 let audioContext;
 let volume;
 let gainNodes = [];
-let tracks; //Drums, Piano, Melody, Guitar
+let tracks;
 
 const currentlyPlaying = []; //set of VOLUME nodes NOT audio
-const properBtn = document.querySelector(".playButton");
+const musicBtn = document.querySelector(".playButton");
 const likeCheckbox = document.getElementById('like');
 const changeButton = document.getElementById("changeIt");
 const muteButton = document.getElementById("mute");
@@ -33,7 +33,7 @@ const oneBar = 5647; // length of one bar
 
 /*
 Note on nature sounds:
-They are unfortunately all different lengths
+They are all different lengths
   Forest: 12.285s
   Ocean: 12.083
   Grasslands: 12.930s
@@ -78,11 +78,11 @@ let changedTrack = null;
 /**
  * Starts and stops the music
  */
-properBtn.addEventListener("click", () => {
+musicBtn.addEventListener("click", () => {
   if (started == false) {
     playing = true;
     audioContext = new AudioContext();
-    properBtn.textContent = 'PAUSE MUSIC';
+    musicBtn.textContent = 'PAUSE MUSIC';
     started = true;
     setupTracks(trackPaths).then((response) => {
       let tracks = response;
@@ -106,17 +106,16 @@ properBtn.addEventListener("click", () => {
     if (audioContext.state === 'running') {
       playing = false;
       audioContext.suspend().then(function () {
-        properBtn.textContent = 'RESUME MUSIC';
+        musicBtn.textContent = 'RESUME MUSIC';
       });
     } else if (audioContext.state === 'suspended') {
       playing = true;
       audioContext.resume().then(function () {
-        properBtn.textContent = 'PAUSE MUSIC';
+        musicBtn.textContent = 'PAUSE MUSIC';
       });
     }
   }
 });
-
 
 /**
  * Saves the prefered set of music labels or unsaves them if unchecked
@@ -131,9 +130,6 @@ likeCheckbox.addEventListener('change', () => {
     setPreviousTextNull();
   }
 })
-
-
-
 
 /**
  * Randomizes all currently playing music tracks
@@ -163,7 +159,6 @@ changeButton.addEventListener("click", () =>{
   }
 });
 
-
 /**
  * Mute's all currently playing audio including background sounds
  */
@@ -171,7 +166,7 @@ muteButton.addEventListener("click", () =>{
   if (playing) {
     playing = false;
     audioContext.suspend().then(function () {
-      properBtn.textContent = 'RESUME MUSIC';
+      musicBtn.textContent = 'RESUME MUSIC';
     });
   }
   for (const checkbox of checkboxes) {
@@ -180,8 +175,6 @@ muteButton.addEventListener("click", () =>{
     }
   }
 })
-
-
 
 /**
  * Randomly changes or mute's one of the four music tracks
@@ -227,7 +220,6 @@ function changeTrack() {
       }
     }
   }
-  
 }
 
 /**
@@ -279,7 +271,6 @@ function setPreviousTextNull(){
   previousMelodyText = null;
   previousPianoText = null;
 }
-
 
 /**
  * Sets the music track label for the specified type to change to the number of the new track.
@@ -362,7 +353,6 @@ function playBackgroundNoise() {
     }
   }
 }
-
 
 /**
  * changes the volume of the background tracks
