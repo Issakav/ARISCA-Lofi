@@ -6,7 +6,7 @@ let gainNodes = [];
 let tracks; //Drums, Piano, Melody, Guitar
 
 const currentlyPlaying = []; //set of VOLUME nodes NOT audio
-const properBtn = document.querySelector(".primary");
+const properBtn = document.querySelector(".playButton");
 const likeCheckbox = document.getElementById('like');
 const changeButton = document.getElementById("changeIt");
 const muteButton = document.getElementById("mute");

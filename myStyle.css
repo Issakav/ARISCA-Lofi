@@ -2,21 +2,6 @@ body {
     background-color: rgb(194, 182, 165);
 }
 
-/* CSS selector */
-
-/*
-
-.primary.fancy      <-- must have both classes
-.controls .primary  <-- (NB: space!) primary inside controls
-button.primary      <-- <button> element with class="primary"
-
-.nature-sounds input   <-- matching HTML element name, using nesting
-.nature-sounds .choice <-- matching custom class attribute, using nesting
-
-*/
-
-
-/* Settings for all of the divs */
 .main {
     margin: 0px auto 0px;
     max-width: 100%;
@@ -41,7 +26,6 @@ button.primary      <-- <button> element with class="primary"
 }
 
 .music {
-    /* max-width: 60%; */
     margin-left: 30px;
 }
 
@@ -65,11 +49,9 @@ button.primary      <-- <button> element with class="primary"
     display: grid;
     text-align: center;
     margin-left: 30px;
-    /* max-width: 30%; */
 }
 
 
-/* Settings for the buttons */
 button {
     padding: 15px 32px;
     font-size: 16px;
@@ -78,8 +60,7 @@ button {
     cursor: pointer;
 }
 
-/* Play, pause, resume */
-.primary {
+.playButton {
     font-size: 300%;
     border: 12px solid rgb(5, 22, 56);
     background-color: rgb(187, 219, 255);
@@ -90,13 +71,11 @@ button {
     margin: 20px auto;
 }
 
-.primary:hover {
+.playButton:hover {
     background-color: rgb(132, 171, 215);
 }
 
-/* Like and change it up */
-.secondary {
-    /* font-size:100%; */
+.secondaryButton {
     width: 300px;
     border-radius: 3ex;
     border: 12px solid rgb(65, 5, 5);
@@ -107,7 +86,7 @@ button {
     margin: 20px auto;
 }
 
-.secondary:hover {
+.secondaryButton:hover {
     background-color: rgb(209, 130, 130);
 }
 
@@ -123,7 +102,8 @@ button {
     background-color: rgb(164, 141, 108);
 }
 
-/* Styling the checkboxes: https://stackoverflow.com/questions/4148499/how-to-style-a-checkbox-using-css?noredirect=1&lq=1 */
+/* Styling for the checkboxes: 
+https://stackoverflow.com/questions/4148499/how-to-style-a-checkbox-using-css?noredirect=1&lq=1 */
 label {
     display:inline-block;
     position: relative; 
@@ -156,7 +136,7 @@ label img {
     color: rgb(8, 72, 90);
 }
 
-/* hiding the default box */
+/* Hides the default box */
 .container input {
     position: absolute;
     opacity: 0;
@@ -165,7 +145,7 @@ label img {
     width: 0;
 }
 
-/* initial settings of the box */
+/* Creates the initial settings of the box */
 .checkmark {
     position: absolute;
     top: 25px;
@@ -187,19 +167,19 @@ label img {
     background-color: rgb(8, 72, 90);
 }
 
-/* creating the checkmark */
+/* Creates the checkmark */
 .checkmark:after {
     content:"";
     position:absolute;
     display:none;
 }
 
-/* Showing the checkmark */
+/* Shows the checkmark */
 .container input:checked ~ .checkmark:after {
     display:block;
 }
 
-/* The checkmark */
+/* Styling the checkmark */
 .container .checkmark:after {
     left: 4px;
     top: 1px;
@@ -212,8 +192,6 @@ label img {
     transform: rotate(45deg);
 }
 
-/* Settings for just the like checkbox */
-/* more specific settings for the checkboxes */
 .container.like {
     width: 240px;
     border-radius: 3ex;
@@ -226,7 +204,6 @@ label img {
     margin: 0 20px;
 }
 
-/* initial settings of the box */
 .container.like input ~ .checkmark {
     top: 16px;
     background-color: rgb(187, 255, 189);
@@ -243,6 +220,7 @@ label img {
     background-color: rgb(5, 65, 20);
 }
 
+/* Styling the checkmark */
 .container.like .checkmark:after {
     border: solid rgb(187, 255, 189);
     border-width: 0 3px 3px 0;
@@ -251,7 +229,6 @@ label img {
     transform: rotate(45deg);
 }
 
-/* The box outline around music and noises */
 fieldset {
     border: 3px solid rgb(50, 34, 11);
     width: 330px;
@@ -260,7 +237,6 @@ fieldset {
     border-radius: 3em;
 }
 
-/* settings for the text at the top of the fieldset */
 legend {
     font-size: 120%;
     font-weight: bold;
@@ -268,12 +244,12 @@ legend {
     
 }
 
-/* specifically for the music box */
+/* Styling just the music fieldset */
 #musicBox {
     width: 800px;
 }
 
-/* The volume sliders */
+/* Styling for volume sliders */
 input[type="range"] {
     appearance: none;
     border: solid 3px rgb(5, 22, 56);
@@ -286,14 +262,14 @@ input[type="range"] {
     margin: 20px;
 }
 
-/* Specifically for the background noise */
+/* Styling specifically for the background noise */
 input[type="range"].background {
     background: linear-gradient(to right, rgb(8, 72, 90) 0%, rgb(8, 72, 90) 50%, rgb(218, 249, 251) 50%, rgb(218, 249, 251) 100%);
     border: solid 3px rgb(8, 72, 90);
     width: 130px;
 } 
 
-/* Volume slider thumb */
+/* Styling for the volume slider thumb */
 input[type="range"]::-webkit-slider-thumb {
     height: 25px;
     width: 25px;
@@ -302,11 +278,12 @@ input[type="range"]::-webkit-slider-thumb {
     -webkit-appearance: none;
 }
 
+/* Styling specifically for the background noise thumb */
 input[type="range"].range.background::-webkit-slider-thumb {
     background: rgb(8, 72, 90); 
 }
 
-/* The currently playing tracks */
+/* Styling for currently playing tracks icons */
 .trackIcon {
     display: flex;
     cursor: default;
@@ -393,6 +370,4 @@ input[type="range"].range.background::-webkit-slider-thumb {
     input[type="range"].background {
         margin-top: 20px;
     }
-    /* TODO:
-    fix the centering of the elements */
 }
