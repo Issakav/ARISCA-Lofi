@@ -5,7 +5,7 @@ let volume;
 let gainNodes = [];
 let tracks;
 
-const currentlyPlaying = []; //set of VOLUME nodes NOT audio
+const currentlyPlaying = []; // Set of VOLUME nodes, not audio
 const musicBtn = document.querySelector(".playButton");
 const likeCheckbox = document.getElementById('like');
 const changeButton = document.getElementById("changeIt");
@@ -102,20 +102,27 @@ musicBtn.addEventListener("click", () => {
       }
       setInterval(changeTrack, 2 * oneBar);
     });
-  } else { // if the audio is already playing/paused
-    if (audioContext.state === 'running') {
-      playing = false;
-      audioContext.suspend().then(function () {
-        musicBtn.textContent = 'RESUME MUSIC';
-      });
-    } else if (audioContext.state === 'suspended') {
-      playing = true;
-      audioContext.resume().then(function () {
-        musicBtn.textContent = 'PAUSE MUSIC';
-      });
-    }
+  } else { 
+    playPause();
   }
 });
+
+/**
+ * Changes state of the music; pauses it if playing and vice versa. 
+ */
+function playPause() {
+  if (audioContext.state === 'running') {
+    playing = false;
+    audioContext.suspend().then(function () {
+      musicBtn.textContent = 'RESUME MUSIC';
+    });
+  } else if (audioContext.state === 'suspended') {
+    playing = true;
+    audioContext.resume().then(function () {
+      musicBtn.textContent = 'PAUSE MUSIC';
+    });
+  }
+}
 
 /**
  * Saves the prefered set of music labels or unsaves them if unchecked
@@ -184,14 +191,14 @@ function changeTrack() {
     if (!likeCheckbox.checked) {
       setPreviousTextNull();
       const typeToChange = getRndInteger(1, 6);
-      if (typeToChange == 5) { //sets one track at random to silent for 1 bar to create a sort of beat droppy effect
+      if (typeToChange == 5) { // Sets one track at random to silent for 1 bar to create a sort of beat droppy effect
         const typeToMute = getRndInteger(1, 5);
         const trackToChange = currentlyPlaying[typeToMute - 1];
         trackToChange.gain.value = 0;
         setTimeout(() => {
           trackToChange.gain.value = musicVolume.value / 100;
         }, oneBar);
-      } else { //swaps one track for another of the same type. sometimes changes it for itself causing no change so that the changes don't feel as consistent.
+      } else { // Swaps one track for another of the same type. Sometimes changes it for itself causing no change so that the changes don't feel as consistent.
         changeAndUpdateTrack(typeToChange);
       }
     } 
@@ -207,14 +214,14 @@ function changeTrack() {
         track.gain.value = musicVolume.value / 100;
       }
       const typeToChange = getRndInteger(1, 6);
-      if (typeToChange == 5) { //sets one track at random to silent for 1 bar to create a sort of beat droppy effect
+      if (typeToChange == 5) { 
         const typeToMute = getRndInteger(1, 5); // ?
         const trackToChange = setTracks[typeToMute - 1];
         trackToChange.gain.value = 0;
         setTimeout(() => {
           trackToChange.gain.value = musicVolume.value / 100;
         }, oneBar);
-      } else { //swaps one track for another of the same type. sometimes changes it for itself causing no change so that the changes don't feel as consistent.
+      } else { 
         updateAllTrackDisplays();
         changeAndUpdateTrackLiked(typeToChange, setTracks);
       }
@@ -227,7 +234,7 @@ function changeTrack() {
  * @param typeTrackToChange  
  */
 function changeAndUpdateTrack(typeTrackToChange){
-  const trackToChange = currentlyPlaying[typeTrackToChange - 1]; //trackToChange is actually a gain node, not a track
+  const trackToChange = currentlyPlaying[typeTrackToChange - 1]; // TrackToChange is actually a gain node, not a track
   trackToChange.gain.value = 0;
   const newTrackNumber = getRndInteger((typeTrackToChange-1) * 5, (typeTrackToChange * 5) -1)
   const newTrack = gainNodes[newTrackNumber];
@@ -242,7 +249,7 @@ function changeAndUpdateTrack(typeTrackToChange){
  * @param setOfLikedTracks
  */
 function changeAndUpdateTrackLiked(typeTrackToChange, setOfLikedTracks){
-  const trackToChange = setOfLikedTracks[typeTrackToChange - 1]; //trackToChange is actually a gain node, not a track
+  const trackToChange = setOfLikedTracks[typeTrackToChange - 1]; 
   trackToChange.gain.value = 0;
   const newTrackNumber = getRndInteger((typeTrackToChange-1) * 5, (typeTrackToChange * 5) -1);
   const newTrack = gainNodes[newTrackNumber];
@@ -361,6 +368,7 @@ backgroundVolume.addEventListener("input", function(slider) {
   for (const audio of backgroundAudios) {
     audio.volume = slider.currentTarget.value / 100;
   }
+  // To Adjust the background color of the slider based on the input:
   let value = (this.value-this.min)/(this.max-this.min)*100
   this.style.background = 'linear-gradient(to right, rgb(8, 72, 90) 0%, rgb(8, 72, 90) ' + value + '%, rgb(218, 249, 251) ' + value + '%, rgb(218, 249, 251) 100%)';
 })
